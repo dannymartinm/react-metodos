@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import Paper from "material-ui/Paper";
 import TextField from "material-ui/TextField";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import imgEq from "../images/cuadradosMediosImg.png";
+import imgEq from "../images/congruencialLineal.png";
+import imgRi from "../images/congruencialLineal2.png";
 import Send from "material-ui/svg-icons/content/send";
 import FloatingActionButton from "material-ui/FloatingActionButton";
 import {
@@ -27,13 +28,15 @@ import FlatButton from "material-ui/FlatButton";
 const style = {
   marginLeft: "95%"
 };
-
-class CentrosCuadrados extends Component {
+class Congruencial extends Component {
   constructor(props) {
     super();
     this.state = {
-      x0: 0,
-      iterations: 0,
+      x0: 4,
+      a: 5,
+      c: 7,
+      m: 8,
+      iterations: 10,
       randomNums: []
     };
   }
@@ -45,68 +48,89 @@ class CentrosCuadrados extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    const { x0, iterations } = this.state;
+    const { x0, a, c, m, iterations } = this.state;
     this.setState({
       x0: x0,
+      a: a,
+      c: c,
+      m: m,
       iterations: iterations
     });
-    this.functionMethod(this.state.x0, this.state.iterations);
+    this.functionMethod(
+      this.state.x0,
+      this.state.a,
+      this.state.c,
+      this.state.m,
+      this.state.iterations
+    );
   };
 
-  functionMethod = (x0, iterations) => {
+  functionMethod = (x0, a, c, m, iterations) => {
     const randomNums = [];
     for (let i = 0; i < iterations; i++) {
-      const x0f = i == 0 ? x0 : randomNums[i - 1].randomNum;
-      const resp = { iteration: i, x0: x0f, randomNum: this.numGenerator(x0f) };
-      randomNums.push(resp);
+      const x0f = i == 0 ? x0 : randomNums[i - 1].randomNum * m;
+      const operation = this.numGenerator(x0f, a, c, m);
+      const res = {
+        iteracion: i,
+        x0: x0f,
+        operacion: operation,
+        randomNum: operation / m
+      };
+      randomNums.push(res);
     }
     this.setState({
       ...this.state,
       randomNums
     });
   };
-  numGenerator = num => {
-    const power = Math.pow(num, 2);
-    let stringPower = power.toString();
 
-    while (stringPower.length < this.state.x0.toString().length * 2) {
-      const zero = "0";
-      stringPower = zero.concat(stringPower);
-    }
-
-    const n = this.state.x0;
-    const longitud = stringPower.length - n.toString().length;
-    const interval = longitud / 2;
-    const res = stringPower.slice(interval, stringPower.length - interval);
-    return res;
+  numGenerator = (x0, a, c, m) => {
+    const op = (a * x0 + c) % m;
+    return op;
   };
 
   render() {
-    const { x0, iterations } = this.state;
-
+    const { x0, a, c, m } = this.state;
     return (
       <div>
         <MuiThemeProvider>
           <Card>
             <CardHeader
-              title="Método de Centros Cuadrados"
+              title="Método Congruencial Lineal"
               subtitle="Información"
               actAsExpander={true}
               showExpandableButton={true}
             />
             <CardText expandable={true}>
               <ul>
-                <li> Propuesto por John von Neumann y Nicholas Metropolis.</li>
+                <li> Propuesto por Lehmer (1951).</li>
                 <li>
-                  Propusieron una secuencia de números enteros entre 0 y 1
+                  El propuso una secuencia de números enteros entre 0 y 1
                   siguiendo la siguiente relación recursiva:
                   <ul>
                     <br />
-                    <img src={imgEq} alt="Equation" height="42" width="500" />
-                    <p>Donde: El valor inicial 𝑋0 es llamado semilla.</p>
+                    <img src={imgEq} alt="Equation" height="32" width="350" />
+                    <p>Donde:</p>
+                    <li>El valor inicial 𝑋0 es llamado semilla</li>
+                    <li>𝑎 es llamado multiplicado</li>
+                    <li>𝑐 es el incremento</li>
+                    <li>m es el módulo 𝑖=0,1,2...</li>
+                  </ul>
+                  <br />
+                </li>
+
+                <li>
+                  Nótese que se están generando enteros y no números aleatorios.
+                  Estos enteros aleatorios deben aparecer uniformemente
+                  distribuidos de cero a m.
+                </li>
+                <li>
+                  Números aleatorios entre cero y 1 pueden ser generados de la
+                  siguiente manera:
+                  <ul>
+                    <img src={imgRi} alt="Equation" height="42" width="200" />
                   </ul>
                 </li>
-                <li>Originalmente los autores proponen 4 cifras.</li>
               </ul>
             </CardText>
           </Card>
@@ -115,21 +139,44 @@ class CentrosCuadrados extends Component {
             <form onSubmit={this.handleSubmit}>
               <TextField
                 margin="normal"
+                type="number"
                 label="semilla"
-                placeholder="Semilla"
+                placeholder="X0"
                 name="x0"
                 onChange={this.handleChange.bind(this)}
                 fullWidth
-                required
               />
               <TextField
                 margin="normal"
-                label="iteraciones"
+                label="a"
+                placeholder="a"
+                name="a"
+                onChange={this.handleChange.bind(this)}
+                fullWidth
+              />
+              <TextField
+                margin="normal"
+                label="c"
+                placeholder="c"
+                name="c"
+                onChange={this.handleChange.bind(this)}
+                fullWidth
+              />
+              <TextField
+                margin="normal"
+                label="m"
+                placeholder="m"
+                name="m"
+                onChange={this.handleChange.bind(this)}
+                fullWidth
+              />
+              <TextField
+                margin="normal"
+                label="iterations"
                 placeholder="Iteraciones"
                 name="iterations"
                 onChange={this.handleChange.bind(this)}
                 fullWidth
-                required
               />
               <FloatingActionButton
                 secondary={true}
@@ -145,7 +192,7 @@ class CentrosCuadrados extends Component {
               <thead>
                 <tr style={{ textAlign: "left" }}>
                   <th>Iteración</th>
-                  <th>X0</th>
+                  <th>Operación</th>
                   <th>Ri</th>
                 </tr>
               </thead>
@@ -153,9 +200,9 @@ class CentrosCuadrados extends Component {
                 {this.state.randomNums !== []
                   ? this.state.randomNums.map((row, i) => (
                       <tr key={i}>
-                        <td>{row.iteration}</td>
-                        <td>{row.x0}</td>
-                        <td>0.{row.randomNum}</td>
+                        <td>{row.iteracion}</td>
+                        <td>{row.operacion}</td>
+                        <td>{row.randomNum}</td>
                       </tr>
                     ))
                   : null}
@@ -168,4 +215,4 @@ class CentrosCuadrados extends Component {
   }
 }
 
-export default CentrosCuadrados;
+export default Congruencial;

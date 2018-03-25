@@ -5,6 +5,7 @@ import { Tabs, Tab } from "material-ui/Tabs";
 import SwipeableViews from "react-swipeable-views";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import CentrosCuadrados from "./CentrosCuadrados";
+import Congruencial from "./Congruencial";
 
 const styles = {
   headline: {
@@ -61,10 +62,18 @@ class App extends Component {
           >
             <div>
               <br />
-              <CentrosCuadrados />
+              <MuiThemeProvider>
+                <CentrosCuadrados />
+              </MuiThemeProvider>
               <br />
             </div>
-            <div style={styles.slide}>slide n°2</div>
+            <div>
+              <br />
+              <MuiThemeProvider>
+                <Congruencial />
+              </MuiThemeProvider>
+              <br />
+            </div>
             <div style={styles.slide}>slide n°3</div>
             <div style={styles.slide}>slide n°4</div>
           </SwipeableViews>
