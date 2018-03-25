@@ -7,6 +7,7 @@ import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import CentrosCuadrados from "./CentrosCuadrados";
 import Congruencial from "./Congruencial";
 import Mixto from "./Mixto";
+import Multiplicativo from "./Multiplicativo";
 
 const styles = {
   headline: {
@@ -52,12 +53,14 @@ class App extends Component {
       <div>
         <MuiThemeProvider>
           <Tabs onChange={this.handleChange} value={this.state.slideIndex}>
-            <Tab label="Método Centros Cuadrados" value={0} />
-            <Tab label="Método Congruencial" value={1} />
-            <Tab label="Método Congruencial Mixto" value={2} />
-            <Tab label="Generador Multiplicativo" value={3} />
+            <Tab label="About" value={0} />
+            <Tab label="Centros Cuadrados" value={1} />
+            <Tab label="Congruencial" value={2} />
+            <Tab label="Congruencial Mixto" value={3} />
+            <Tab label="Generador Multiplicativo" value={4} />
           </Tabs>
           <SwipeableViews index={this.state.slideIndex}>
+            <div>Proyecto Métodos - About</div>
             <div>
               <br />
               <MuiThemeProvider>
@@ -79,7 +82,13 @@ class App extends Component {
               </MuiThemeProvider>
               <br />
             </div>
-            <div style={styles.slide}>slide n°4</div>
+            <div>
+              <br />
+              <MuiThemeProvider>
+                <Multiplicativo />
+              </MuiThemeProvider>
+              <br />
+            </div>
           </SwipeableViews>
         </MuiThemeProvider>
       </div>
