@@ -6,6 +6,7 @@ import SwipeableViews from "react-swipeable-views";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import CentrosCuadrados from "./CentrosCuadrados";
 import Congruencial from "./Congruencial";
+import Mixto from "./Mixto";
 
 const styles = {
   headline: {
@@ -56,10 +57,7 @@ class App extends Component {
             <Tab label="Método Congruencial Mixto" value={2} />
             <Tab label="Generador Multiplicativo" value={3} />
           </Tabs>
-          <SwipeableViews
-            index={this.state.slideIndex}
-            onChangeIndex={this.handleChange}
-          >
+          <SwipeableViews index={this.state.slideIndex}>
             <div>
               <br />
               <MuiThemeProvider>
@@ -74,7 +72,13 @@ class App extends Component {
               </MuiThemeProvider>
               <br />
             </div>
-            <div style={styles.slide}>slide n°3</div>
+            <div>
+              <br />
+              <MuiThemeProvider>
+                <Mixto />
+              </MuiThemeProvider>
+              <br />
+            </div>
             <div style={styles.slide}>slide n°4</div>
           </SwipeableViews>
         </MuiThemeProvider>

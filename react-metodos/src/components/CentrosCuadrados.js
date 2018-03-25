@@ -140,7 +140,7 @@ class CentrosCuadrados extends Component {
               </FloatingActionButton>
             </form>
           </Paper>
-          <Card style={{ width: "30%" }}>
+          <Card style={{ width: "50%" }}>
             <table className="MyClassName" style={{ width: "100%" }}>
               <thead>
                 <tr style={{ textAlign: "left" }}>
