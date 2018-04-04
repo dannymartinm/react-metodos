@@ -5,6 +5,7 @@ import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import imgEq from "../images/cuadradosMediosImg.png";
 import Send from "material-ui/svg-icons/content/send";
 import FloatingActionButton from "material-ui/FloatingActionButton";
+import RaisedButton from 'material-ui/RaisedButton';
 import {
   Table,
   TableBody,
@@ -25,6 +26,9 @@ import {
 import FlatButton from "material-ui/FlatButton";
 
 const style = {
+   button: {
+    margin: 12,
+  },
   marginLeft: "95%"
 };
 
@@ -34,7 +38,14 @@ class CentrosCuadrados extends Component {
     this.state = {
       x0: 0,
       iterations: 0,
-      randomNums: []
+      randomNums: [],
+      resChi: [],
+      finalcompare: 0,
+      selected: 0,
+      chi:  [[3.8415, 5.9915,7.8147,9.4877,11.0705,12.5916,14.0671,15.5073,16.9190,
+      18.3070,19.6752, 21.0261, 22.3620, 23.6848, 24.9958, 26.2962,27.5871, 28.8693, 30.1435, 
+      31.4104, 32.6706],[2.7055, 4.6052, 6.2514, 7.7794, 9.2363,10.6446,12.0170, 13.3616, 14.6837, 15.9872, 12.2750, 18.5493,
+      19.8119, 21.0641, 22.3071, 23.5418, 24.7690, 24.1555, 25.3289, 26.4976,27.662]]
     };
   }
 
@@ -51,6 +62,15 @@ class CentrosCuadrados extends Component {
       iterations: iterations
     });
     this.functionMethod(this.state.x0, this.state.iterations);
+  };
+
+  handleSubmitChi = e => {
+    e.preventDefault();
+    const { randomNums } = this.state;
+    this.setState({
+      randomNums: randomNums
+    });
+    this.chiGenerator(this.state.randomNums);
   };
 
   functionMethod = (x0, iterations) => {
@@ -80,6 +100,136 @@ class CentrosCuadrados extends Component {
     const res = stringPower.slice(interval, stringPower.length - interval);
     return res;
   };
+
+  chiGenerator = num =>{
+    let kin = Math.floor(1+ 3.222 * Math.log10(num));
+    let k = Math.floor(1+ 3.222 * Math.log10(num));
+    let v =(kin-1);
+    let arreglados=this.randomNums;
+    arreglados.sort();
+    let max = arreglados[arreglados.length-1];
+    let lit = max/kin;
+    let tablas=[];
+    let fabs= [];
+    let fersteorica= [];
+    let fers= [];
+    let final= [];
+    let l = 0;
+    this.finalcompare=0;
+    for(let contador =1; contador<=kin; contador++){
+      //console.log("%f",arreglado.sort[arreglados.length-1]);
+      tablas.push((arreglados[arreglados.length-1]/kin)*contador);
+      
+      fabs.push(0);
+    }
+    tablas.forEach(element => {
+      console.log("%f",element);
+      
+    });
+
+    for(let n =0; n<this.generateNum; n++){
+      let r=false;
+      let count =0;
+      while(r==false&&count<kin){
+        if(arreglados[n]<=tablas[count]){
+            fabs[count]=fabs[count]+1;
+            
+            r=true;
+        }else{
+          count++;
+        }
+      }
+    }
+ 
+   tablas.forEach(element => {
+    console.log("%f",element);
+  });
+    
+    if(num>20){
+    for(let n =0; n<kin; n++){
+      
+      if(fabs[n]<5){
+        
+        fabs[n-1]=fabs[n-1]+fabs[n];
+        for(let m=n; m<k-1; m++){
+         console.log("M es %d"+m);
+          let h=m+1;
+          console.log
+          let counting=1;
+          let rin=false;
+          while(fabs[h]<5&&h<k-1){
+            fabs[n-1] = fabs[n-1]+fabs[h];
+            rin=true;
+            tablas[n-1]=tablas[h];
+           
+            h++;
+            counting++;
+            
+          }
+          for(let tab=n; tab<k;tab++){
+            if(h<k){
+            tablas[tab]=tablas[h];
+              h++;
+            }
+          }
+
+          if(rin==true){            
+            fabs[m] = fabs[m+counting];
+            fabs[n-1+counting]=fabs[m+counting+1];
+            fabs[m+counting]=fabs[m+counting+1];           
+            fabs.forEach(element => {
+              console.log("Each element true",element);  
+            });
+            console.log("El fabs counting es"+fabs[m]);
+            m=n-1+counting;
+            console.log("M ahora es %d"+m);
+          }else{
+            fabs[m] = fabs[m+1];
+          }
+          k=k-counting;
+        }
+      }
+    }
+  }
+    for(let newn =0; newn<k; newn++){
+      fers.push(fabs[newn]/num);
+      
+      if(newn==0){
+        fersteorica.push(tablas[newn]);
+        
+      }else{
+        fersteorica.push(tablas[newn]-tablas[newn-1]);
+      } 
+     
+      final.push(Math.pow(fersteorica[newn]-fers[newn],2)/fersteorica[newn]);
+    }
+   
+    final.forEach(element => {
+      this.finalcompare=element+this.finalcompare;     
+    });
+
+    v=k-1;
+    l=v-1;
+    
+    if(this.selected==0.05){
+      if(this.finalcompare<this.chi[0][v-1]){
+        this.mostrarMensaje(this.finalcompare + ' Pasa la prueba pues Es menor que el valor chi:' +this.chi[0][v-1], true);
+        const resC = {res: this.mostrarMensaje};
+      }else{
+        this.mostrarMensaje(this.finalcompare + ' No Pasa la prueba pues Es mayor que el valor chi:' +this.chi[0][v-1], true);
+        const resC = {res: this.mostrarMensaje};
+      }
+    }else{
+      if(this.finalcompare<this.chi[1][v-1]){
+        this.mostrarMensaje(this.finalcompare + ' Pasa la prueba pues Es menor que el valor chi:' +this.chi[1][v-1], true);
+        const resC = {res: this.mostrarMensaje};
+      }else{
+        this.mostrarMensaje(this.finalcompare + ' No Pasa la prueba pues Es mayor que el valor chi:' +this.chi[1][v-1], true);
+        const resC = {res: this.mostrarMensaje};
+      }
+    }
+    this.resChi.push(this.resC);
+  }
 
   render() {
     const { x0, iterations } = this.state;
@@ -156,6 +306,43 @@ class CentrosCuadrados extends Component {
                         <td>{row.iteration}</td>
                         <td>{row.x0}</td>
                         <td>0.{row.randomNum}</td>
+                      </tr>
+                    ))
+                  : null}
+              </tbody>
+            </table>
+          </Card>
+          <Paper style={{ padding: 16, marginBottom: 8 }}>
+            <h2>Comprobar Resultados</h2>
+            <form onSubmit={this.handleSubmitChi}>
+              <RaisedButton
+                label= "Chi - Cuadrada"
+                secondary={true}
+                style={style.button}
+              >
+              </RaisedButton>
+            </form>
+            <form onSubmit={this.handleSubmit}>
+              <RaisedButton
+                label= "Kolmogorov - Smirnov"
+                secondary={true}
+                style={style.button}
+              >
+              </RaisedButton>
+            </form>
+          </Paper>
+          <Card style={{ width: "50%" }}>
+            <table className="MyClassName" style={{ width: "100%" }}>
+              <thead>
+                <tr style={{ textAlign: "left" }}>
+                  <th>Resultado de Chi - Cuadrada</th>
+                </tr>
+              </thead>
+              <tbody>
+                {this.state.resChi !== []
+                  ? this.state.resChi.map((row, i) => (
+                      <tr key={i}>
+                        <td>{row.res}</td>
                       </tr>
                     ))
                   : null}
