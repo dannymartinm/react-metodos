@@ -273,8 +273,8 @@ class Mixto extends Component {
               <thead>
                 <tr style={{ textAlign: "left" }}>
                   <th>Iteración</th>
-                  <th>X0</th>
                   <th>Operación</th>
+                  <th>Valor Operación</th>
                   <th>Ri</th>
                 </tr>
               </thead>
@@ -283,10 +283,11 @@ class Mixto extends Component {
                   ? this.state.randomNums.map((row, i) => (
                       <tr key={i}>
                         <td>{row.iteracion}</td>
-                        <td>{row.x0}</td>
                         <td>
                           ({row.a}*{row.x0}+{row.c})%{row.m}
                         </td>
+                        <td>{row.operacion}</td>
+
                         <td>{row.randomNum}</td>
                       </tr>
                     ))
