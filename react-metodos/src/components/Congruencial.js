@@ -389,17 +389,16 @@ class Congruencial extends Component {
           ajustada <
           this.state.kolsmir[this.state.selectedSK][arreglados2.length - 1]
         ) {
-          //this.mostrarMensaje(ajustada+ 'Pasa la prueba pues Es mayor que el valor Kolmogrov Smirnov:' +this.state.kolsmir[this.state.selectedSK][arreglados2.length-1], true);
           console.log(
             ajustada +
-              "Pasa la prueba, es mayor que el valor Kolmogrov Smirnov:" +
+              "Pasa la prueba, es mayor que el valor KS:" +
               this.state.kolsmir[this.state.selectedSK][arreglados2.length - 1]
           );
           const res = {
             mensaje: met,
             r:
               ajustada +
-              " Pasa la prueba, es mayor que el valor Kolmogrov Smirnov: " +
+              " Pasa la prueba, es mayor que el valor KS: " +
               this.state.kolsmir[this.state.selectedSK][arreglados2.length - 1]
           };
           mensaje.push(res);
@@ -407,14 +406,14 @@ class Congruencial extends Component {
           //this.mostrarMensaje(ajustada+ ' NO Pasa la prueba pues Es mayor que el valor Kolmogrov Smirnov:' +this.state.kolsmir[this.state.selectedSK][arreglados2.length-1], true);
           console.log(
             ajustada +
-              " No pasa la prueba, es mayor que el valor Kolmogrov Smirnov:" +
+              " No pasa la prueba, es mayor que el valor KS:" +
               this.state.kolsmir[this.state.selectedSK][arreglados2.length - 1]
           );
           const res = {
             mensaje: met,
             r:
               ajustada +
-              " No pasa la prueba, es mayor que el valor Kolmogrov Smirnov: " +
+              " No pasa la prueba, es mayor que el valor KS: " +
               this.state.kolsmir[this.state.selectedSK][arreglados2.length - 1]
           };
           mensaje.push(res);
@@ -434,15 +433,13 @@ class Congruencial extends Component {
         if (ajustada < compareKS) {
           //this.mostrarMensaje(ajustada+ ' Pasa la prueba pues Es mayor que el valor Kolmogrov Smirnov' +compareKS, true);
           console.log(
-            ajustada +
-              " Pasa la prueba, es mayor que el valor Kolmogrov Smirnov" +
-              compareKS
+            ajustada + " Pasa la prueba, es mayor que el valor KS" + compareKS
           );
           const res = {
             mensaje: met,
             r:
               ajustada +
-              " Pasa la prueba, es mayor que el valor Kolmogrov Smirnov: " +
+              " Pasa la prueba, es mayor que el valor KS: " +
               compareKS
           };
           mensaje.push(res);
@@ -450,14 +447,14 @@ class Congruencial extends Component {
           //this.mostrarMensaje(ajustada+ ' NO Pasa la prueba pues Es mayor que el valor Kolmogrov Smirnov: ' +compareKS, true);
           console.log(
             ajustada +
-              " No pasa la prueba, es mayor que el valor Kolmogrov Smirnov: " +
+              " No pasa la prueba, es mayor que el valor KS: " +
               compareKS
           );
           const res = {
             mensaje: met,
             r:
               ajustada +
-              " No pasa la prueba, es mayor que el valor Kolmogrov Smirnov: " +
+              " No pasa la prueba, es mayor que el valor KS: " +
               compareKS
           };
           mensaje.push(res);
@@ -471,14 +468,14 @@ class Congruencial extends Component {
           //this.mostrarMensaje(f+ ' Pasa la prueba pues Es menor que el valor Kolmogrov Smirnov:' +this.state.kolsmir[this.state.selectedSK][arreglados2.length-1], true);
           console.log(
             f +
-              " Pasa la prueba, es menor que el valor Kolmogrov Smirnov:" +
+              " Pasa la prueba, es menor que el valor KS:" +
               this.state.kolsmir[this.state.selectedSK][arreglados2.length - 1]
           );
           const res = {
             mensaje: met,
             r:
               f +
-              " Pasa la prueba, es mayor que el valor Kolmogrov Smirnov: " +
+              " Pasa la prueba, es mayor que el valor KS: " +
               this.state.kolsmir[this.state.selectedSK][arreglados2.length - 1]
           };
           mensaje.push(res);
@@ -486,14 +483,14 @@ class Congruencial extends Component {
           //this.mostrarMensaje(f+ ' NO Pasa la prueba pues Es mayor que el valor Kolmogrov Smirnov:' +this.state.kolsmir[this.state.selectedSK][arreglados2.length-1], true);
           console.log(
             f +
-              " No Pasa la prueba, es mayor que el valor Kolmogrov Smirnov:" +
+              " No Pasa la prueba, es mayor que el valor KS:" +
               this.state.kolsmir[this.state.selectedSK][arreglados2.length - 1]
           );
           const res = {
             mensaje: met,
             r:
               f +
-              " No pasa la prueba, es mayor que el valor Kolmogrov Smirnov: " +
+              " No pasa la prueba, es mayor que el valor KS: " +
               this.state.kolsmir[this.state.selectedSK][arreglados2.length - 1]
           };
           mensaje.push(res);
@@ -508,31 +505,21 @@ class Congruencial extends Component {
         if (f < compareKS) {
           //this.mostrarMensaje(f+ ' Pasa la prueba pues Es menor que el valor Kolmogrov Smirnov:' +compareKS, true);
           console.log(
-            f +
-              " Pasa la prueba, es menor que el valor Kolmogrov Smirnov:" +
-              compareKS
+            f + " Pasa la prueba, es menor que el valor KS:" + compareKS
           );
           const res = {
             mensaje: met,
-            r:
-              f +
-              " Pasa la prueba, es mayor que el valor Kolmogrov Smirnov: " +
-              compareKS
+            r: f + " Pasa la prueba, es mayor que el valor KS: " + compareKS
           };
           mensaje.push(res);
         } else {
           //this.mostrarMensaje(f+ ' NO Pasa la prueba pues Es mayor que el valor Kolmogrov Smirnov:' +compareKS, true);
           console.log(
-            f +
-              " No pasa la prueba, es mayor que el valor Kolmogrov Smirnov:" +
-              compareKS
+            f + " No pasa la prueba, es mayor que el valor KS:" + compareKS
           );
           const res = {
             mensaje: met,
-            r:
-              f +
-              " No pasa la prueba, es mayor que el valor Kolmogrov Smirnov: " +
-              compareKS
+            r: f + " No pasa la prueba, es mayor que el valor KS: " + compareKS
           };
           mensaje.push(res);
         }

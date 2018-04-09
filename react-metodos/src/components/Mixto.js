@@ -443,32 +443,30 @@ class Mixto extends Component {
           ajustada <
           this.state.kolsmir[this.state.selectedSK][arreglados2.length - 1]
         ) {
-          //this.mostrarMensaje(ajustada+ 'Pasa la prueba pues Es mayor que el valor Kolmogrov Smirnov:' +this.state.kolsmir[this.state.selectedSK][arreglados2.length-1], true);
           console.log(
             ajustada +
-              "Pasa la prueba pues Es mayor que el valor Kolmogrov Smirnov:" +
+              "Pasa la prueba, es mayor que el valor KS" +
               this.state.kolsmir[this.state.selectedSK][arreglados2.length - 1]
           );
           const res = {
             mensaje: met,
             r:
               ajustada +
-              " Pasa la prueba pues es mayor que el valor Kolmogrov Smirnov: " +
+              " Pasa la prueba, es mayor que el valor KS: " +
               this.state.kolsmir[this.state.selectedSK][arreglados2.length - 1]
           };
           mensaje.push(res);
         } else {
-          //this.mostrarMensaje(ajustada+ ' NO Pasa la prueba pues Es mayor que el valor Kolmogrov Smirnov:' +this.state.kolsmir[this.state.selectedSK][arreglados2.length-1], true);
           console.log(
             ajustada +
-              " NO Pasa la prueba pues Es mayor que el valor Kolmogrov Smirnov:" +
+              " No pasa la prueba, es mayor que el valor KS:" +
               this.state.kolsmir[this.state.selectedSK][arreglados2.length - 1]
           );
           const res = {
             mensaje: met,
             r:
               ajustada +
-              " NO Pasa la prueba pues es mayor que el valor Kolmogrov Smirnov: " +
+              " No pasa la prueba, es mayor que el valor KS: " +
               this.state.kolsmir[this.state.selectedSK][arreglados2.length - 1]
           };
           mensaje.push(res);
@@ -486,32 +484,28 @@ class Mixto extends Component {
           compareKS = 1.22 / Math.sqrt(arreglados2.length);
         }
         if (ajustada < compareKS) {
-          //this.mostrarMensaje(ajustada+ ' Pasa la prueba pues Es mayor que el valor Kolmogrov Smirnov' +compareKS, true);
           console.log(
-            ajustada +
-              " Pasa la prueba pues Es mayor que el valor Kolmogrov Smirnov" +
-              compareKS
+            ajustada + " Pasa la prueba, es mayor que el valor KS" + compareKS
           );
           const res = {
             mensaje: met,
             r:
               ajustada +
-              " Pasa la prueba pues es mayor que el valor Kolmogrov Smirnov: " +
+              " Pasa la prueba, es mayor que el valor KS: " +
               compareKS
           };
           mensaje.push(res);
         } else {
-          //this.mostrarMensaje(ajustada+ ' NO Pasa la prueba pues Es mayor que el valor Kolmogrov Smirnov: ' +compareKS, true);
           console.log(
             ajustada +
-              " NO Pasa la prueba pues Es mayor que el valor Kolmogrov Smirnov: " +
+              " No pasa la prueba, es mayor que el valor KS: " +
               compareKS
           );
           const res = {
             mensaje: met,
             r:
               ajustada +
-              " NO Pasa la prueba pues es mayor que el valor Kolmogrov Smirnov: " +
+              " No pasa la prueba, es mayor que el valor KS: " +
               compareKS
           };
           mensaje.push(res);
@@ -522,32 +516,30 @@ class Mixto extends Component {
         if (
           f < this.state.kolsmir[this.state.selectedSK][arreglados2.length - 1]
         ) {
-          //this.mostrarMensaje(f+ ' Pasa la prueba pues Es menor que el valor Kolmogrov Smirnov:' +this.state.kolsmir[this.state.selectedSK][arreglados2.length-1], true);
           console.log(
             f +
-              " Pasa la prueba pues Es menor que el valor Kolmogrov Smirnov:" +
+              " Pasa la prueba, es menor que el valor KS:" +
               this.state.kolsmir[this.state.selectedSK][arreglados2.length - 1]
           );
           const res = {
             mensaje: met,
             r:
               f +
-              " Pasa la prueba pues es mayor que el valor Kolmogrov Smirnov: " +
+              " Pasa la prueba, es mayor que el valor KS: " +
               this.state.kolsmir[this.state.selectedSK][arreglados2.length - 1]
           };
           mensaje.push(res);
         } else {
-          //this.mostrarMensaje(f+ ' NO Pasa la prueba pues Es mayor que el valor Kolmogrov Smirnov:' +this.state.kolsmir[this.state.selectedSK][arreglados2.length-1], true);
           console.log(
             f +
-              " NO Pasa la prueba pues Es mayor que el valor Kolmogrov Smirnov:" +
+              " No Pasa la prueba, es mayor que el valor KS:" +
               this.state.kolsmir[this.state.selectedSK][arreglados2.length - 1]
           );
           const res = {
             mensaje: met,
             r:
               f +
-              " NO Pasa la prueba pues es mayor que el valor Kolmogrov Smirnov: " +
+              " No pasa la prueba, es mayor que el valor KS: " +
               this.state.kolsmir[this.state.selectedSK][arreglados2.length - 1]
           };
           mensaje.push(res);
@@ -560,33 +552,21 @@ class Mixto extends Component {
           compareKS = 1.22 / Math.sqrt(arreglados2.length);
         }
         if (f < compareKS) {
-          //this.mostrarMensaje(f+ ' Pasa la prueba pues Es menor que el valor Kolmogrov Smirnov:' +compareKS, true);
           console.log(
-            f +
-              " Pasa la prueba pues Es menor que el valor Kolmogrov Smirnov:" +
-              compareKS
+            f + " Pasa la prueba, es menor que el valor KS:" + compareKS
           );
           const res = {
             mensaje: met,
-            r:
-              f +
-              " Pasa la prueba pues es mayor que el valor Kolmogrov Smirnov: " +
-              compareKS
+            r: f + " Pasa la prueba, es mayor que el valor KS: " + compareKS
           };
           mensaje.push(res);
         } else {
-          //this.mostrarMensaje(f+ ' NO Pasa la prueba pues Es mayor que el valor Kolmogrov Smirnov:' +compareKS, true);
           console.log(
-            f +
-              " NO Pasa la prueba pues Es mayor que el valor Kolmogrov Smirnov:" +
-              compareKS
+            f + " No pasa la prueba, es mayor que el valor KS:" + compareKS
           );
           const res = {
             mensaje: met,
-            r:
-              f +
-              " NO Pasa la prueba pues es mayor que el valor Kolmogrov Smirnov: " +
-              compareKS
+            r: f + " No pasa la prueba, es mayor que el valor KS: " + compareKS
           };
           mensaje.push(res);
         }

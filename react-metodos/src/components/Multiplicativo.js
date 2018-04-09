@@ -7,7 +7,7 @@ import imgRi from "../images/multiplicativo2.png";
 import Send from "material-ui/svg-icons/content/send";
 import FloatingActionButton from "material-ui/FloatingActionButton";
 import RaisedButton from "material-ui/RaisedButton";
-
+import _ from "lodash";
 import {
   Table,
   TableBody,
@@ -40,6 +40,57 @@ class Multiplicativo extends Component {
       m: 100,
       iterations: 20,
       randomNums: [],
+      selected: 0.05,
+      chi: [
+        [
+          3.8415,
+          5.9915,
+          7.8147,
+          9.4877,
+          11.0705,
+          12.5916,
+          14.0671,
+          15.5073,
+          16.919,
+          18.307,
+          19.6752,
+          21.0261,
+          22.362,
+          23.6848,
+          24.9958,
+          26.2962,
+          27.5871,
+          28.8693,
+          30.1435,
+          31.4104,
+          32.6706
+        ],
+        [
+          2.7055,
+          4.6052,
+          6.2514,
+          7.7794,
+          9.2363,
+          10.6446,
+          12.017,
+          13.3616,
+          14.6837,
+          15.9872,
+          12.275,
+          18.5493,
+          19.8119,
+          21.0641,
+          22.3071,
+          23.5418,
+          24.769,
+          24.1555,
+          25.3289,
+          26.4976,
+          27.662
+        ]
+      ],
+      validations: [],
+      message: [],
       mensaje: [],
       selectK: 0,
       selectedSK: 0,
@@ -149,15 +200,144 @@ class Multiplicativo extends Component {
       };
       randomNums.push(res);
     }
+    const validations = [];
+    if (x0 >= 0 && a >= 0 && m >= 0 && m > a && m > x0) {
+      validations.push({ m: "Cumple" });
+      console.log("Cumple");
+    } else {
+      validations.push({ m: "No Cumple" });
+      console.log("No Cumple");
+    }
     this.setState({
       ...this.state,
-      randomNums
+      randomNums,
+      validations
     });
   };
 
   numGenerator = (x0, a, m) => {
     const op = (a * x0) % m;
     return op;
+  };
+  chiOperations = () => {
+    let array = [];
+    _.map(this.state.randomNums, o => {
+      array.push(Number(o.randomNum));
+    });
+
+    const aleatorios = array.sort();
+    const N = aleatorios.length;
+    const max = aleatorios[aleatorios.length - 1];
+    const min = aleatorios[0];
+    const rango = max - min;
+    const intervaloS = 1 + 3.222 * Math.log10(N);
+    const k = Math.floor(1 + 3.222 * Math.log10(N));
+    const intervaloR = Math.sqrt(N);
+    const tamanio = (max - min) / k;
+    let limInf = 0;
+    let limSup = 0;
+    let res = [];
+
+    for (let i = 1; i < intervaloS; i++) {
+      if (i <= 1) {
+        limInf = min;
+        limSup = min + tamanio;
+        res = [
+          ...res,
+          {
+            limInf: limInf,
+            limSup: limSup,
+            fo: this.calculateFo(limInf, limSup, aleatorios)
+          }
+        ];
+      } else if (i >= 2) {
+        limInf = limSup;
+        limSup = limInf + tamanio;
+        res = [
+          ...res,
+          {
+            limInf: limInf,
+            limSup: limSup,
+            fo: this.calculateFo(limInf, limSup, aleatorios)
+          }
+        ];
+      }
+    }
+    let fR = [];
+    _.map(res, o => {
+      fR.push(o.fo / N);
+    });
+    console.log(fR);
+    const ab = min - max;
+    let fei = [];
+    _.map(res, fx => {
+      fei.push((fx.limInf - fx.limSup) / ab);
+    });
+
+    let F0FE2FE = [];
+    let auxFOFE2 = 0;
+    for (let l = 0; l < fei.length; l++) {
+      auxFOFE2 = Math.pow(fei[l] - fR[l], 2) / fei[l];
+      F0FE2FE.push(auxFOFE2);
+    }
+
+    let sumFinal = 0;
+    for (let m = 0; m < F0FE2FE.length; m++) {
+      sumFinal += F0FE2FE[m];
+    }
+    console.log("sumaFinal", sumFinal);
+
+    const v = k - 1 - 1;
+    const message = [];
+    if (this.state.selected == 0.05) {
+      if (sumFinal < this.state.chi[0][v - 1]) {
+        const res = {
+          m:
+            "Pasa la prueba, " +
+            sumFinal.toString() +
+            " es menor que chi teórico: " +
+            this.state.chi[0][v - 2]
+        };
+        message.push(res);
+        console.log(
+          "Pasa la prueba, ",
+          sumFinal.toString(),
+          " es menor que chi teórico:" + this.state.chi[0][v - 2]
+        );
+      } else {
+        console.log(
+          "No Pasa la prueba, es mayor que chi teórico:" +
+            this.state.chi[0][v - 1]
+        );
+      }
+    } else {
+      if (sumFinal < this.state.chi[1][v - 1]) {
+        console.log(
+          "Pasa la prueba, es menor que chi teórico:",
+          this.state.chi[0][v - 1]
+        );
+      } else {
+        console.log(
+          "No Pasa la prueba, es mayor que chi teórico" +
+            this.state.chi[0][v - 1]
+        );
+      }
+    }
+    console.log("mensajeChi", message);
+    this.setState({
+      ...this.state,
+      message
+    });
+  };
+
+  calculateFo = (limInf, limSup, aleatorios) => {
+    let TFo = 0;
+    for (let i = 0; i < this.state.randomNums.length; i++) {
+      if (aleatorios[i] >= limInf && aleatorios[i] <= limSup) {
+        TFo++;
+      }
+    }
+    return TFo;
   };
 
   onGenerateKilmogorov() {
@@ -217,32 +397,30 @@ class Multiplicativo extends Component {
           ajustada <
           this.state.kolsmir[this.state.selectedSK][arreglados2.length - 1]
         ) {
-          //this.mostrarMensaje(ajustada+ 'Pasa la prueba pues Es mayor que el valor Kolmogrov Smirnov:' +this.state.kolsmir[this.state.selectedSK][arreglados2.length-1], true);
           console.log(
             ajustada +
-              "Pasa la prueba pues Es mayor que el valor Kolmogrov Smirnov:" +
+              "Pasa la prueba, es mayor que el valor KS:" +
               this.state.kolsmir[this.state.selectedSK][arreglados2.length - 1]
           );
           const res = {
             mensaje: met,
             r:
               ajustada +
-              " Pasa la prueba pues es mayor que el valor Kolmogrov Smirnov: " +
+              " Pasa la prueba, es mayor que el valor KS: " +
               this.state.kolsmir[this.state.selectedSK][arreglados2.length - 1]
           };
           mensaje.push(res);
         } else {
-          //this.mostrarMensaje(ajustada+ ' NO Pasa la prueba pues Es mayor que el valor Kolmogrov Smirnov:' +this.state.kolsmir[this.state.selectedSK][arreglados2.length-1], true);
           console.log(
             ajustada +
-              " NO Pasa la prueba pues Es mayor que el valor Kolmogrov Smirnov:" +
+              " No pasa la prueba, es mayor que el valor Kolmogrov Smirnov:" +
               this.state.kolsmir[this.state.selectedSK][arreglados2.length - 1]
           );
           const res = {
             mensaje: met,
             r:
               ajustada +
-              " NO Pasa la prueba pues es mayor que el valor Kolmogrov Smirnov: " +
+              " No pasa la prueba, es mayor que el valor KS: " +
               this.state.kolsmir[this.state.selectedSK][arreglados2.length - 1]
           };
           mensaje.push(res);
@@ -260,17 +438,14 @@ class Multiplicativo extends Component {
           compareKS = 1.22 / Math.sqrt(arreglados2.length);
         }
         if (ajustada < compareKS) {
-          //this.mostrarMensaje(ajustada+ ' Pasa la prueba pues Es mayor que el valor Kolmogrov Smirnov' +compareKS, true);
           console.log(
-            ajustada +
-              " Pasa la prueba pues Es mayor que el valor Kolmogrov Smirnov" +
-              compareKS
+            ajustada + " Pasa la prueba, es mayor que el valor KS:" + compareKS
           );
           const res = {
             mensaje: met,
             r:
               ajustada +
-              " Pasa la prueba pues es mayor que el valor Kolmogrov Smirnov: " +
+              " Pasa la prueba, es mayor que el valor KS: " +
               compareKS
           };
           mensaje.push(res);
@@ -278,14 +453,14 @@ class Multiplicativo extends Component {
           //this.mostrarMensaje(ajustada+ ' NO Pasa la prueba pues Es mayor que el valor Kolmogrov Smirnov: ' +compareKS, true);
           console.log(
             ajustada +
-              " NO Pasa la prueba pues Es mayor que el valor Kolmogrov Smirnov: " +
+              " No pasa la prueba, es mayor que el valor KS: " +
               compareKS
           );
           const res = {
             mensaje: met,
             r:
               ajustada +
-              " NO Pasa la prueba pues es mayor que el valor Kolmogrov Smirnov: " +
+              " No pasa la prueba, es mayor que el valor KS: " +
               compareKS
           };
           mensaje.push(res);
@@ -299,14 +474,14 @@ class Multiplicativo extends Component {
           //this.mostrarMensaje(f+ ' Pasa la prueba pues Es menor que el valor Kolmogrov Smirnov:' +this.state.kolsmir[this.state.selectedSK][arreglados2.length-1], true);
           console.log(
             f +
-              " Pasa la prueba pues Es menor que el valor Kolmogrov Smirnov:" +
+              " Pasa la prueba, es menor que el valor KS:" +
               this.state.kolsmir[this.state.selectedSK][arreglados2.length - 1]
           );
           const res = {
             mensaje: met,
             r:
               f +
-              " Pasa la prueba pues es mayor que el valor Kolmogrov Smirnov: " +
+              " Pasa la prueba, es mayor que el valor KS: " +
               this.state.kolsmir[this.state.selectedSK][arreglados2.length - 1]
           };
           mensaje.push(res);
@@ -314,14 +489,14 @@ class Multiplicativo extends Component {
           //this.mostrarMensaje(f+ ' NO Pasa la prueba pues Es mayor que el valor Kolmogrov Smirnov:' +this.state.kolsmir[this.state.selectedSK][arreglados2.length-1], true);
           console.log(
             f +
-              " NO Pasa la prueba pues Es mayor que el valor Kolmogrov Smirnov:" +
+              " No pasa la prueba, es mayor que el valor KS:" +
               this.state.kolsmir[this.state.selectedSK][arreglados2.length - 1]
           );
           const res = {
             mensaje: met,
             r:
               f +
-              " NO Pasa la prueba pues es mayor que el valor Kolmogrov Smirnov: " +
+              " No pasa la prueba, es mayor que el valor KS: " +
               this.state.kolsmir[this.state.selectedSK][arreglados2.length - 1]
           };
           mensaje.push(res);
@@ -336,31 +511,21 @@ class Multiplicativo extends Component {
         if (f < compareKS) {
           //this.mostrarMensaje(f+ ' Pasa la prueba pues Es menor que el valor Kolmogrov Smirnov:' +compareKS, true);
           console.log(
-            f +
-              " Pasa la prueba pues Es menor que el valor Kolmogrov Smirnov:" +
-              compareKS
+            f + " Pasa la prueba, es menor que el valor KS:" + compareKS
           );
           const res = {
             mensaje: met,
-            r:
-              f +
-              " Pasa la prueba pues es mayor que el valor Kolmogrov Smirnov: " +
-              compareKS
+            r: f + " Pasa la prueba, es mayor que el valor KS: " + compareKS
           };
           mensaje.push(res);
         } else {
           //this.mostrarMensaje(f+ ' NO Pasa la prueba pues Es mayor que el valor Kolmogrov Smirnov:' +compareKS, true);
           console.log(
-            f +
-              " NO Pasa la prueba pues Es mayor que el valor Kolmogrov Smirnov:" +
-              compareKS
+            f + " No pasa la prueba, es mayor que el valor KS:" + compareKS
           );
           const res = {
             mensaje: met,
-            r:
-              f +
-              " NO Pasa la prueba pues es mayor que el valor Kolmogrov Smirnov: " +
-              compareKS
+            r: f + " No pasa la prueba, es mayor que el valor KS: " + compareKS
           };
           mensaje.push(res);
         }
@@ -450,6 +615,23 @@ class Multiplicativo extends Component {
               </FloatingActionButton>
             </form>
           </Paper>
+          <div>
+            {this.state.validations !== []
+              ? this.state.validations.map((row, i) => (
+                  <div
+                    style={{
+                      backgroundColor: "#00BCD4",
+                      width: "30%",
+                      height: "20%",
+                      marginLeft: "10%"
+                    }}
+                    key={i}
+                  >
+                    {row.m}
+                  </div>
+                ))
+              : null}
+          </div>
           <Card style={{ width: "50%" }}>
             <table className="MyClassName" style={{ width: "100%" }}>
               <thead>
@@ -482,7 +664,7 @@ class Multiplicativo extends Component {
             <RaisedButton
               label="Chi - Cuadrada"
               secondary={true}
-              onClick={this.handleSubmitChi}
+              onClick={this.chiOperations}
             />
 
             <RaisedButton
@@ -492,6 +674,7 @@ class Multiplicativo extends Component {
               onClick={this.handleSubmitKS}
             />
           </Paper>
+
           <Card style={{ width: "50%" }}>
             <table className="MyClassName" style={{ width: "100%" }}>
               <thead>
@@ -504,8 +687,16 @@ class Multiplicativo extends Component {
                 {this.state.mensaje !== []
                   ? this.state.mensaje.map((row, i) => (
                       <tr key={i}>
-                        <td>{row.mensaje}</td>
+                        <td>KS</td>
                         <td>{row.r}</td>
+                      </tr>
+                    ))
+                  : null}
+                {this.state.message !== []
+                  ? this.state.message.map((row, i) => (
+                      <tr key={i}>
+                        <td>Chi^2</td>
+                        <td>{row.m}</td>
                       </tr>
                     ))
                   : null}

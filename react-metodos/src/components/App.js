@@ -60,7 +60,13 @@ class App extends Component {
             <Tab label="Generador Multiplicativo" value={4} />
           </Tabs>
           <SwipeableViews index={this.state.slideIndex}>
-            <div>Proyecto Métodos - About</div>
+            <div>
+              Proyecto Métodos
+              <h3>Daniela Martín Martínez</h3>
+              <h4>A01323113</h4>
+              <h3>Diego Granados Gómez</h3>
+              <h4>A01337287</h4>
+            </div>
             <div>
               <br />
               <MuiThemeProvider>
