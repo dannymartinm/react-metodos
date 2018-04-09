@@ -1,0 +1,32 @@
+Arguments: 
+  /Users/DanielaMartin/.nvm/versions/node/v9.4.0/bin/node /usr/local/Cellar/yarn/1.5.1_1/libexec/bin/yarn.js start
+
+PATH: 
+  /opt/local/bin:/opt/local/sbin:/Users/DanielaMartin/.rvm/gems/ruby-2.2.1/bin:/Users/DanielaMartin/.rvm/gems/ruby-2.2.1@global/bin:/Users/DanielaMartin/.rvm/rubies/ruby-2.2.1/bin:/Users/DanielaMartin/.nvm/versions/node/v9.4.0/bin:/Users/DanielaMartin/.rbenv/shims:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/go/bin:/Users/DanielaMartin/.rvm/bin
+
+Yarn version: 
+  1.5.1
+
+Node version: 
+  9.4.0
+
+Platform: 
+  darwin x64
+
+npm manifest: 
+  No manifest
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
+
+Trace: 
+  Error: Couldn't find a package.json file in "/Users/DanielaMartin/Desktop/SEM 10/Métodos Cuantitativos/ProyectoMétodos/react-metodos"
+      at new MessageError (/usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:186:110)
+      at /usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:40048:15
+      at Generator.next (<anonymous>)
+      at step (/usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:98:30)
+      at /usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:109:13
+      at <anonymous>
