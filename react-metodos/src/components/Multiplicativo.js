@@ -43,18 +43,60 @@ class Multiplicativo extends Component {
       mensaje: [],
       selectK: 0,
       selectedSK: 0,
-      kolsmir: [[0.975,0.842,0.708,0.624,0.565,0.532,0.486,0.457,0.432,0.410,0.391,0.375,0.361,0.349,
-  0.338,0.328,0.318,0.309,0.301,0.294],
-  [0.950,0.776,0.642,0.564, 0.510, 0.470, 0.438,0.411, 0.388, 0.368, 0.352, 0.338, 0.325, 0.314, 0.304, 0.295,
-  0.286,0.278,0.272, 0.264]],
+      kolsmir: [
+        [
+          0.975,
+          0.842,
+          0.708,
+          0.624,
+          0.565,
+          0.532,
+          0.486,
+          0.457,
+          0.432,
+          0.41,
+          0.391,
+          0.375,
+          0.361,
+          0.349,
+          0.338,
+          0.328,
+          0.318,
+          0.309,
+          0.301,
+          0.294
+        ],
+        [
+          0.95,
+          0.776,
+          0.642,
+          0.564,
+          0.51,
+          0.47,
+          0.438,
+          0.411,
+          0.388,
+          0.368,
+          0.352,
+          0.338,
+          0.325,
+          0.314,
+          0.304,
+          0.295,
+          0.286,
+          0.278,
+          0.272,
+          0.264
+        ]
+      ],
       pruebaChi: [
-        0.0200,
+        0.02,
         0.0356,
         0.1355,
         0.5011,
-        1.5140,
+        1.514,
         1.6055,
-        2.3710,
+        2.371,
         3.2225,
         8.8836,
         19.0123
@@ -118,139 +160,207 @@ class Multiplicativo extends Component {
     return op;
   };
 
-  onGenerateKilmogorov(){
+  onGenerateKilmogorov() {
     //let arreglados2=this.state.pruebaChi;
     //arreglados2.sort();
-    let arreglados2=[];
-    console.log('QQQQQQQQQ'+this.state.randomNums.length);
+    let arreglados2 = [];
+    console.log("QQQQQQQQQ" + this.state.randomNums.length);
     for (var i = 0; i < this.state.randomNums.length; i++) {
       arreglados2.push(this.state.randomNums[i].randomNum);
     }
-    arreglados2=arreglados2.sort();
-    let fe=1/arreglados2.length;
-    let sum=0;
+    arreglados2 = arreglados2.sort();
+    let fe = 1 / arreglados2.length;
+    let sum = 0;
     for (var i = 0; i < arreglados2.length; i++) {
       sum = sum + arreglados2[i];
     }
-    let prom = sum/arreglados2.length;
+    let prom = sum / arreglados2.length;
     let met = "Kilmogorov - Smirnov";
-    let lamb = 1/prom;
-    const mensaje =[];
-    let fdx=[];
-    let frec=[];
-    let f1=[];
-    let f2=[];
-    let f1max=0;
-    let f2max=0;
-    let f=0;
-    for(let i=0; i<arreglados2.length;i++){
-      frec.push(fe*(i+1));
-      fdx.push(1-Math.exp((-lamb)*arreglados2[i]));
-      f1.push(Math.abs(frec[i]-fdx[i]));
-      if (i==0) {
-        f2.push(Math.abs(fdx[i]-0));
-      }else{
-        f2.push(Math.abs(fdx[i]-frec[i-1]));
+    let lamb = 1 / prom;
+    const mensaje = [];
+    let fdx = [];
+    let frec = [];
+    let f1 = [];
+    let f2 = [];
+    let f1max = 0;
+    let f2max = 0;
+    let f = 0;
+    for (let i = 0; i < arreglados2.length; i++) {
+      frec.push(fe * (i + 1));
+      fdx.push(1 - Math.exp(-lamb * arreglados2[i]));
+      f1.push(Math.abs(frec[i] - fdx[i]));
+      if (i == 0) {
+        f2.push(Math.abs(fdx[i] - 0));
+      } else {
+        f2.push(Math.abs(fdx[i] - frec[i - 1]));
       }
-      
     }
     f1.sort();
-    f1max=f1[f1.length-1];
+    f1max = f1[f1.length - 1];
     f2.sort();
-    f2max=f2[f2.length-1];
-    if(f1max<f2max){
-      f=f2max;
-    }else{
-      f=f1max;
+    f2max = f2[f2.length - 1];
+    if (f1max < f2max) {
+      f = f2max;
+    } else {
+      f = f1max;
     }
-    
+
     console.log(this.state.selectK);
-    if(this.state.selectK==1){
-      if(arreglados2.length<21){
-        let ajustada=f*(Math.sqrt(arreglados2.length)+0.12+(0.11/Math.sqrt(arreglados2.length)));
-        if(ajustada<this.state.kolsmir[this.state.selectedSK][arreglados2.length-1]){
+    if (this.state.selectK == 1) {
+      if (arreglados2.length < 21) {
+        let ajustada =
+          f *
+          (Math.sqrt(arreglados2.length) +
+            0.12 +
+            0.11 / Math.sqrt(arreglados2.length));
+        if (
+          ajustada <
+          this.state.kolsmir[this.state.selectedSK][arreglados2.length - 1]
+        ) {
           //this.mostrarMensaje(ajustada+ 'Pasa la prueba pues Es mayor que el valor Kolmogrov Smirnov:' +this.state.kolsmir[this.state.selectedSK][arreglados2.length-1], true);
-          console.log(ajustada+ 'Pasa la prueba pues Es mayor que el valor Kolmogrov Smirnov:' +this.state.kolsmir[this.state.selectedSK][arreglados2.length-1]);
+          console.log(
+            ajustada +
+              "Pasa la prueba pues Es mayor que el valor Kolmogrov Smirnov:" +
+              this.state.kolsmir[this.state.selectedSK][arreglados2.length - 1]
+          );
           const res = {
             mensaje: met,
-            r: ajustada+ ' Pasa la prueba pues es mayor que el valor Kolmogrov Smirnov: ' +this.state.kolsmir[this.state.selectedSK][arreglados2.length-1]
+            r:
+              ajustada +
+              " Pasa la prueba pues es mayor que el valor Kolmogrov Smirnov: " +
+              this.state.kolsmir[this.state.selectedSK][arreglados2.length - 1]
           };
           mensaje.push(res);
-        }else{
+        } else {
           //this.mostrarMensaje(ajustada+ ' NO Pasa la prueba pues Es mayor que el valor Kolmogrov Smirnov:' +this.state.kolsmir[this.state.selectedSK][arreglados2.length-1], true);
-          console.log(ajustada+ ' NO Pasa la prueba pues Es mayor que el valor Kolmogrov Smirnov:' +this.state.kolsmir[this.state.selectedSK][arreglados2.length-1]);
+          console.log(
+            ajustada +
+              " NO Pasa la prueba pues Es mayor que el valor Kolmogrov Smirnov:" +
+              this.state.kolsmir[this.state.selectedSK][arreglados2.length - 1]
+          );
           const res = {
             mensaje: met,
-            r: ajustada+ ' NO Pasa la prueba pues es mayor que el valor Kolmogrov Smirnov: ' +this.state.kolsmir[this.state.selectedSK][arreglados2.length-1]
+            r:
+              ajustada +
+              " NO Pasa la prueba pues es mayor que el valor Kolmogrov Smirnov: " +
+              this.state.kolsmir[this.state.selectedSK][arreglados2.length - 1]
           };
           mensaje.push(res);
         }
-      }else{
-        let ajustada=f*(Math.sqrt(arreglados2.length)+0.12+(0.11/Math.sqrt(arreglados2.length)));
-        let compareKS=0;
-        if(this.state.selectedSK==0){
-          compareKS=1.36/Math.sqrt(arreglados2.length);
-        }else{
-          compareKS=1.22/Math.sqrt(arreglados2.length);
+      } else {
+        let ajustada =
+          f *
+          (Math.sqrt(arreglados2.length) +
+            0.12 +
+            0.11 / Math.sqrt(arreglados2.length));
+        let compareKS = 0;
+        if (this.state.selectedSK == 0) {
+          compareKS = 1.36 / Math.sqrt(arreglados2.length);
+        } else {
+          compareKS = 1.22 / Math.sqrt(arreglados2.length);
         }
-        if(ajustada<compareKS){
+        if (ajustada < compareKS) {
           //this.mostrarMensaje(ajustada+ ' Pasa la prueba pues Es mayor que el valor Kolmogrov Smirnov' +compareKS, true);
-          console.log(ajustada+ ' Pasa la prueba pues Es mayor que el valor Kolmogrov Smirnov' +compareKS);
+          console.log(
+            ajustada +
+              " Pasa la prueba pues Es mayor que el valor Kolmogrov Smirnov" +
+              compareKS
+          );
           const res = {
             mensaje: met,
-            r: ajustada+ ' Pasa la prueba pues es mayor que el valor Kolmogrov Smirnov: ' +compareKS
+            r:
+              ajustada +
+              " Pasa la prueba pues es mayor que el valor Kolmogrov Smirnov: " +
+              compareKS
           };
           mensaje.push(res);
-        }else{
+        } else {
           //this.mostrarMensaje(ajustada+ ' NO Pasa la prueba pues Es mayor que el valor Kolmogrov Smirnov: ' +compareKS, true);
-          console.log(ajustada+ ' NO Pasa la prueba pues Es mayor que el valor Kolmogrov Smirnov: ' +compareKS);
+          console.log(
+            ajustada +
+              " NO Pasa la prueba pues Es mayor que el valor Kolmogrov Smirnov: " +
+              compareKS
+          );
           const res = {
             mensaje: met,
-            r: ajustada+ ' NO Pasa la prueba pues es mayor que el valor Kolmogrov Smirnov: ' +compareKS
+            r:
+              ajustada +
+              " NO Pasa la prueba pues es mayor que el valor Kolmogrov Smirnov: " +
+              compareKS
           };
           mensaje.push(res);
         }
       }
-    }else{
-      if(arreglados2.length<21){
-        if(f<this.state.kolsmir[this.state.selectedSK][arreglados2.length-1]){
+    } else {
+      if (arreglados2.length < 21) {
+        if (
+          f < this.state.kolsmir[this.state.selectedSK][arreglados2.length - 1]
+        ) {
           //this.mostrarMensaje(f+ ' Pasa la prueba pues Es menor que el valor Kolmogrov Smirnov:' +this.state.kolsmir[this.state.selectedSK][arreglados2.length-1], true);
-          console.log(f+ ' Pasa la prueba pues Es menor que el valor Kolmogrov Smirnov:' +this.state.kolsmir[this.state.selectedSK][arreglados2.length-1]);
+          console.log(
+            f +
+              " Pasa la prueba pues Es menor que el valor Kolmogrov Smirnov:" +
+              this.state.kolsmir[this.state.selectedSK][arreglados2.length - 1]
+          );
           const res = {
             mensaje: met,
-            r: f+ ' Pasa la prueba pues es mayor que el valor Kolmogrov Smirnov: ' +this.state.kolsmir[this.state.selectedSK][arreglados2.length-1]
+            r:
+              f +
+              " Pasa la prueba pues es mayor que el valor Kolmogrov Smirnov: " +
+              this.state.kolsmir[this.state.selectedSK][arreglados2.length - 1]
           };
           mensaje.push(res);
-        }else{
+        } else {
           //this.mostrarMensaje(f+ ' NO Pasa la prueba pues Es mayor que el valor Kolmogrov Smirnov:' +this.state.kolsmir[this.state.selectedSK][arreglados2.length-1], true);
-          console.log(f+ ' NO Pasa la prueba pues Es mayor que el valor Kolmogrov Smirnov:' +this.state.kolsmir[this.state.selectedSK][arreglados2.length-1]);
+          console.log(
+            f +
+              " NO Pasa la prueba pues Es mayor que el valor Kolmogrov Smirnov:" +
+              this.state.kolsmir[this.state.selectedSK][arreglados2.length - 1]
+          );
           const res = {
             mensaje: met,
-            r: f+ ' NO Pasa la prueba pues es mayor que el valor Kolmogrov Smirnov: ' +this.state.kolsmir[this.state.selectedSK][arreglados2.length-1]
+            r:
+              f +
+              " NO Pasa la prueba pues es mayor que el valor Kolmogrov Smirnov: " +
+              this.state.kolsmir[this.state.selectedSK][arreglados2.length - 1]
           };
           mensaje.push(res);
         }
-      }else{
-        let compareKS=0;
-        if(this.state.selectedSK==0){
-          compareKS=1.36/Math.sqrt(arreglados2.length);
-        }else{
-          compareKS=1.22/Math.sqrt(arreglados2.length);
+      } else {
+        let compareKS = 0;
+        if (this.state.selectedSK == 0) {
+          compareKS = 1.36 / Math.sqrt(arreglados2.length);
+        } else {
+          compareKS = 1.22 / Math.sqrt(arreglados2.length);
         }
-        if(f<compareKS){
+        if (f < compareKS) {
           //this.mostrarMensaje(f+ ' Pasa la prueba pues Es menor que el valor Kolmogrov Smirnov:' +compareKS, true);
-          console.log(f+ ' Pasa la prueba pues Es menor que el valor Kolmogrov Smirnov:' +compareKS);
+          console.log(
+            f +
+              " Pasa la prueba pues Es menor que el valor Kolmogrov Smirnov:" +
+              compareKS
+          );
           const res = {
             mensaje: met,
-            r: f+ ' Pasa la prueba pues es mayor que el valor Kolmogrov Smirnov: ' +compareKS
+            r:
+              f +
+              " Pasa la prueba pues es mayor que el valor Kolmogrov Smirnov: " +
+              compareKS
           };
           mensaje.push(res);
-        }else{
+        } else {
           //this.mostrarMensaje(f+ ' NO Pasa la prueba pues Es mayor que el valor Kolmogrov Smirnov:' +compareKS, true);
-          console.log(f+ ' NO Pasa la prueba pues Es mayor que el valor Kolmogrov Smirnov:' +compareKS);
+          console.log(
+            f +
+              " NO Pasa la prueba pues Es mayor que el valor Kolmogrov Smirnov:" +
+              compareKS
+          );
           const res = {
             mensaje: met,
-            r: f+ ' NO Pasa la prueba pues es mayor que el valor Kolmogrov Smirnov: ' +compareKS
+            r:
+              f +
+              " NO Pasa la prueba pues es mayor que el valor Kolmogrov Smirnov: " +
+              compareKS
           };
           mensaje.push(res);
         }
@@ -372,14 +482,13 @@ class Multiplicativo extends Component {
             <RaisedButton
               label="Chi - Cuadrada"
               secondary={true}
-              style={style.button}
               onClick={this.handleSubmitChi}
             />
 
             <RaisedButton
               label="Kolmogorov - Smirnov"
               secondary={true}
-              style={style.button}
+              style={{ display: "inline-block", marginLeft: "3%" }}
               onClick={this.handleSubmitKS}
             />
           </Paper>

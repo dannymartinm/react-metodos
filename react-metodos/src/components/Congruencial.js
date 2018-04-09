@@ -667,14 +667,12 @@ class Congruencial extends Component {
             <RaisedButton
               label="Chi - Cuadrada"
               secondary={true}
-              style={style.button}
               onClick={this.chiOperations}
             />
-
             <RaisedButton
               label="Kolmogorov - Smirnov"
               secondary={true}
-              style={style.button}
+              style={{ display: "inline-block", marginLeft: "3%" }}
               onClick={this.handleSubmitKS}
             />
           </Paper>
