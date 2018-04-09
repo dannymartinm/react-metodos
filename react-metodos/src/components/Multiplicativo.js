@@ -288,6 +288,7 @@ class Multiplicativo extends Component {
     console.log("sumaFinal", sumFinal);
 
     const v = k - 1 - 1;
+
     const message = [];
     if (this.state.selected == 0.05) {
       if (sumFinal < this.state.chi[0][v - 1]) {
@@ -296,15 +297,23 @@ class Multiplicativo extends Component {
             "Pasa la prueba, " +
             sumFinal.toString() +
             " es menor que chi teórico: " +
-            this.state.chi[0][v - 2]
+            this.state.chi[0][v - 1]
         };
         message.push(res);
         console.log(
           "Pasa la prueba, ",
           sumFinal.toString(),
-          " es menor que chi teórico:" + this.state.chi[0][v - 2]
+          " es menor que chi teórico:" + this.state.chi[0][v - 1]
         );
       } else {
+        const res = {
+          m:
+            "No pasa la prueba, " +
+            sumFinal.toString() +
+            " es mayor que chi teórico: " +
+            this.state.chi[0][v - 1]
+        };
+        message.push(res);
         console.log(
           "No Pasa la prueba, es mayor que chi teórico:" +
             this.state.chi[0][v - 1]
@@ -312,11 +321,27 @@ class Multiplicativo extends Component {
       }
     } else {
       if (sumFinal < this.state.chi[1][v - 1]) {
+        const res = {
+          m:
+            "Pasa la prueba, " +
+            sumFinal.toString() +
+            " es menor que chi teórico: " +
+            this.state.chi[0][v - 1]
+        };
+        message.push(res);
         console.log(
           "Pasa la prueba, es menor que chi teórico:",
           this.state.chi[0][v - 1]
         );
       } else {
+        const res = {
+          m:
+            "No pasa la prueba, " +
+            sumFinal.toString() +
+            " es mayor que chi teórico: " +
+            this.state.chi[0][v - 1]
+        };
+        message.push(res);
         console.log(
           "No Pasa la prueba, es mayor que chi teórico" +
             this.state.chi[0][v - 1]
@@ -344,7 +369,6 @@ class Multiplicativo extends Component {
     //let arreglados2=this.state.pruebaChi;
     //arreglados2.sort();
     let arreglados2 = [];
-    console.log("QQQQQQQQQ" + this.state.randomNums.length);
     for (var i = 0; i < this.state.randomNums.length; i++) {
       arreglados2.push(this.state.randomNums[i].randomNum);
     }

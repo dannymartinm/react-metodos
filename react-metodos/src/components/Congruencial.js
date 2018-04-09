@@ -246,7 +246,6 @@ class Congruencial extends Component {
     for (let m = 0; m < F0FE2FE.length; m++) {
       sumFinal += F0FE2FE[m];
     }
-    console.log("sumaFinal", sumFinal);
 
     const v = k - 1 - 1;
     const message = [];
@@ -257,15 +256,18 @@ class Congruencial extends Component {
             "Pasa la prueba, " +
             sumFinal.toString() +
             " es menor que chi teórico: " +
-            this.state.chi[0][v - 2]
+            this.state.chi[0][v - 1]
         };
         message.push(res);
-        console.log(
-          "Pasa la prueba, ",
-          sumFinal.toString(),
-          " es menor que chi teórico:" + this.state.chi[0][v - 2]
-        );
       } else {
+        const res = {
+          m:
+            "No pasa la prueba, " +
+            sumFinal.toString() +
+            " es mayor que chi teórico: " +
+            this.state.chi[0][v - 1]
+        };
+        message.push(res);
         console.log(
           "No Pasa la prueba, es mayor que chi teórico:" +
             this.state.chi[0][v - 1]
@@ -273,11 +275,27 @@ class Congruencial extends Component {
       }
     } else {
       if (sumFinal < this.state.chi[1][v - 1]) {
+        const res = {
+          m:
+            "Pasa la prueba, " +
+            sumFinal.toString() +
+            " es menor que chi teórico: " +
+            this.state.chi[0][v - 1]
+        };
+        message.push(res);
         console.log(
           "Pasa la prueba, es menor que chi teórico:",
           this.state.chi[0][v - 1]
         );
       } else {
+        const res = {
+          m:
+            "No pasa la prueba, " +
+            sumFinal.toString() +
+            " es mayor que chi teórico: " +
+            this.state.chi[0][v - 1]
+        };
+        message.push(res);
         console.log(
           "No Pasa la prueba, es mayor que chi teórico" +
             this.state.chi[0][v - 1]
@@ -334,8 +352,6 @@ class Congruencial extends Component {
   };
 
   onGenerateKilmogorov() {
-    //let arreglados2=this.state.pruebaChi;
-    //arreglados2.sort();
     let arreglados2 = [];
     for (var i = 0; i < this.state.randomNums.length; i++) {
       arreglados2.push(this.state.randomNums[i].randomNum);
@@ -403,7 +419,6 @@ class Congruencial extends Component {
           };
           mensaje.push(res);
         } else {
-          //this.mostrarMensaje(ajustada+ ' NO Pasa la prueba pues Es mayor que el valor Kolmogrov Smirnov:' +this.state.kolsmir[this.state.selectedSK][arreglados2.length-1], true);
           console.log(
             ajustada +
               " No pasa la prueba, es mayor que el valor KS:" +
@@ -431,7 +446,6 @@ class Congruencial extends Component {
           compareKS = 1.22 / Math.sqrt(arreglados2.length);
         }
         if (ajustada < compareKS) {
-          //this.mostrarMensaje(ajustada+ ' Pasa la prueba pues Es mayor que el valor Kolmogrov Smirnov' +compareKS, true);
           console.log(
             ajustada + " Pasa la prueba, es mayor que el valor KS" + compareKS
           );
@@ -444,7 +458,6 @@ class Congruencial extends Component {
           };
           mensaje.push(res);
         } else {
-          //this.mostrarMensaje(ajustada+ ' NO Pasa la prueba pues Es mayor que el valor Kolmogrov Smirnov: ' +compareKS, true);
           console.log(
             ajustada +
               " No pasa la prueba, es mayor que el valor KS: " +
@@ -465,7 +478,6 @@ class Congruencial extends Component {
         if (
           f < this.state.kolsmir[this.state.selectedSK][arreglados2.length - 1]
         ) {
-          //this.mostrarMensaje(f+ ' Pasa la prueba pues Es menor que el valor Kolmogrov Smirnov:' +this.state.kolsmir[this.state.selectedSK][arreglados2.length-1], true);
           console.log(
             f +
               " Pasa la prueba, es menor que el valor KS:" +
@@ -480,7 +492,6 @@ class Congruencial extends Component {
           };
           mensaje.push(res);
         } else {
-          //this.mostrarMensaje(f+ ' NO Pasa la prueba pues Es mayor que el valor Kolmogrov Smirnov:' +this.state.kolsmir[this.state.selectedSK][arreglados2.length-1], true);
           console.log(
             f +
               " No Pasa la prueba, es mayor que el valor KS:" +
@@ -503,7 +514,6 @@ class Congruencial extends Component {
           compareKS = 1.22 / Math.sqrt(arreglados2.length);
         }
         if (f < compareKS) {
-          //this.mostrarMensaje(f+ ' Pasa la prueba pues Es menor que el valor Kolmogrov Smirnov:' +compareKS, true);
           console.log(
             f + " Pasa la prueba, es menor que el valor KS:" + compareKS
           );
@@ -513,7 +523,6 @@ class Congruencial extends Component {
           };
           mensaje.push(res);
         } else {
-          //this.mostrarMensaje(f+ ' NO Pasa la prueba pues Es mayor que el valor Kolmogrov Smirnov:' +compareKS, true);
           console.log(
             f + " No pasa la prueba, es mayor que el valor KS:" + compareKS
           );

@@ -234,7 +234,6 @@ class Mixto extends Component {
     for (let m = 0; m < F0FE2FE.length; m++) {
       sumFinal += F0FE2FE[m];
     }
-    console.log("sumaFinal", sumFinal);
 
     const v = k - 1 - 1;
     const message = [];
@@ -245,13 +244,13 @@ class Mixto extends Component {
             "Pasa la prueba, " +
             sumFinal.toString() +
             " es menor que chi teórico: " +
-            this.state.chi[0][v - 2]
+            this.state.chi[0][v - 1]
         };
         message.push(res);
         console.log(
           "Pasa la prueba, ",
           sumFinal.toString(),
-          " es menor que chi teórico:" + this.state.chi[0][v - 2]
+          " es menor que chi teórico:" + this.state.chi[0][v - 1]
         );
       } else {
         console.log(
@@ -272,7 +271,6 @@ class Mixto extends Component {
         );
       }
     }
-    console.log("mensajeChi", message);
     this.setState({
       ...this.state,
       message
@@ -388,8 +386,6 @@ class Mixto extends Component {
   };
 
   onGenerateKilmogorov() {
-    //let arreglados2=this.state.pruebaChi;
-    //arreglados2.sort();
     let arreglados2 = [];
     for (var i = 0; i < this.state.randomNums.length; i++) {
       arreglados2.push(this.state.randomNums[i].randomNum);
@@ -431,7 +427,6 @@ class Mixto extends Component {
       f = f1max;
     }
 
-    console.log(this.state.selectK);
     if (this.state.selectK == 1) {
       if (arreglados2.length < 21) {
         let ajustada =
