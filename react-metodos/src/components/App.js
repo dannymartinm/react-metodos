@@ -4,10 +4,11 @@ import "../App.css";
 import { Tabs, Tab } from "material-ui/Tabs";
 import SwipeableViews from "react-swipeable-views";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import CentrosCuadrados from "./CentrosCuadrados";
-import Congruencial from "./Congruencial";
-import Mixto from "./Mixto";
-import Multiplicativo from "./Multiplicativo";
+import CentrosCuadrados from "./NumRandom/CentrosCuadrados";
+import Congruencial from "./NumRandom/Congruencial";
+import Mixto from "./NumRandom/Mixto";
+import Multiplicativo from "./NumRandom/Multiplicativo";
+import AppBar from "./AppBar";
 
 const styles = {
   headline: {
@@ -52,6 +53,7 @@ class App extends Component {
     return (
       <div>
         <MuiThemeProvider>
+          <AppBar />
           <Tabs onChange={this.handleChange} value={this.state.slideIndex}>
             <Tab label="About" value={0} />
             <Tab label="Centros Cuadrados" value={1} />
