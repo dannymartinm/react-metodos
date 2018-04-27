@@ -1,14 +1,14 @@
 import React, { Component } from "react";
-import logo from "../logo.svg";
-import "../App.css";
+import logo from "../../logo.svg";
+import "../../App.css";
 import { Tabs, Tab } from "material-ui/Tabs";
 import SwipeableViews from "react-swipeable-views";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import CentrosCuadrados from "./NumRandom/CentrosCuadrados";
-import Congruencial from "./NumRandom/Congruencial";
-import Mixto from "./NumRandom/Mixto";
-import Multiplicativo from "./NumRandom/Multiplicativo";
-import AppBar from "./AppBar";
+import CentrosCuadrados from "./CentrosCuadrados";
+import Congruencial from "./Congruencial";
+import Mixto from "./Mixto";
+import Multiplicativo from "./Multiplicativo";
+import AppBar from "../AppBar";
 
 const styles = {
   headline: {
@@ -21,7 +21,7 @@ const styles = {
     padding: 10
   }
 };
-class App extends Component {
+class NumRandomHome extends Component {
   // render() {
   //   return (
   //     <div className="App">
@@ -55,20 +55,12 @@ class App extends Component {
         <MuiThemeProvider>
           <AppBar />
           <Tabs onChange={this.handleChange} value={this.state.slideIndex}>
-            <Tab label="About" value={0} />
-            <Tab label="Centros Cuadrados" value={1} />
-            <Tab label="Congruencial" value={2} />
-            <Tab label="Congruencial Mixto" value={3} />
-            <Tab label="Generador Multiplicativo" value={4} />
+            <Tab label="Centros Cuadrados" value={0} />
+            <Tab label="Congruencial" value={1} />
+            <Tab label="Congruencial Mixto" value={2} />
+            <Tab label="Generador Multiplicativo" value={3} />
           </Tabs>
           <SwipeableViews index={this.state.slideIndex}>
-            <div>
-              Proyecto Métodos
-              <h3>Daniela Martín Martínez</h3>
-              <h4>A01323113</h4>
-              <h3>Diego Granados Gómez</h3>
-              <h4>A01337287</h4>
-            </div>
             <div>
               <br />
               <MuiThemeProvider>
@@ -104,4 +96,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default NumRandomHome;
