@@ -8,25 +8,7 @@ import Send from "material-ui/svg-icons/content/send";
 import FloatingActionButton from "material-ui/FloatingActionButton";
 import RaisedButton from "material-ui/RaisedButton";
 import _ from "lodash";
-
-import {
-  Table,
-  TableBody,
-  TableHeader,
-  TableHeaderColumn,
-  TableRow,
-  TableRowColumn
-} from "material-ui/Table";
-
-import {
-  Card,
-  CardActions,
-  CardHeader,
-  CardMedia,
-  CardTitle,
-  CardText
-} from "material-ui/Card";
-import FlatButton from "material-ui/FlatButton";
+import { Card, CardHeader, CardText } from "material-ui/Card";
 
 const style = {
   marginLeft: "95%"

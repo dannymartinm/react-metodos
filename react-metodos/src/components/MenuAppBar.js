@@ -4,6 +4,7 @@ import IconMenu from "material-ui/IconMenu";
 import MoreVertIcon from "material-ui/svg-icons/navigation/more-vert";
 import { MenuList, MenuItem } from "material-ui/Menu";
 import { ListItemIcon, ListItemText } from "material-ui/List";
+import { Link } from "react-router-dom";
 
 class MenuRender extends Component {
   render() {
@@ -15,27 +16,15 @@ class MenuRender extends Component {
           </IconButton>
         }
       >
-        {/* <Link to={`/numRandom`} style={{ textDecoration: "none" }} /> */}
         <MenuItem
           inset="true"
           primaryText="Números Aleatorios"
-          onClick={() => {
-            console.log("click click Num ALeatorios");
-          }}
+          containerElement={<Link to="/numRandom" />}
         />
         <MenuItem
           inset="true"
           primaryText="Filas de Espera"
-          onClick={() => {
-            console.log("click click Filas");
-          }}
-        />
-        <MenuItem
-          inset="true"
-          primaryText="About"
-          onClick={() => {
-            console.log("click click About");
-          }}
+          containerElement={<Link to="/filasEspera" />}
         />
       </IconMenu>
     );

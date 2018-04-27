@@ -53,7 +53,9 @@ class NumRandomHome extends Component {
     return (
       <div>
         <MuiThemeProvider>
-          <AppBar />
+          <MuiThemeProvider>
+            <AppBar />
+          </MuiThemeProvider>
           <Tabs onChange={this.handleChange} value={this.state.slideIndex}>
             <Tab label="Centros Cuadrados" value={0} />
             <Tab label="Congruencial" value={1} />
