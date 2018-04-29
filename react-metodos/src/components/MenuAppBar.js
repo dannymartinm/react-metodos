@@ -18,6 +18,12 @@ class MenuRender extends Component {
       >
         <MenuItem
           inset="true"
+          primaryText="Home"
+          containerElement={<Link to="/" />}
+        />
+
+        <MenuItem
+          inset="true"
           primaryText="Números Aleatorios"
           containerElement={<Link to="/numRandom" />}
         />
@@ -25,6 +31,11 @@ class MenuRender extends Component {
           inset="true"
           primaryText="Filas de Espera"
           containerElement={<Link to="/filasEspera" />}
+        />
+        <MenuItem
+          inset="true"
+          primaryText="About"
+          containerElement={<Link to="/about" />}
         />
       </IconMenu>
     );
