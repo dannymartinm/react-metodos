@@ -15,7 +15,6 @@ import {
   TableRow,
   TableRowColumn
 } from "material-ui/Table";
-
 import {
   Card,
   CardActions,
