@@ -3,7 +3,7 @@ import AppBar from "../AppBar";
 import { Tabs, Tab } from "material-ui/Tabs";
 import SwipeableViews from "react-swipeable-views";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import MG1 from "./MG1";
+import MG1Home from "./MG1Home";
 import MM1 from "./MM1";
 import MMs from "./MMs";
 import MMsK from "./MMsK";
@@ -61,7 +61,7 @@ class FilasEsperaHome extends Component {
               <div>
                 <br />
                 <MuiThemeProvider>
-                  <MG1 />
+                  <MG1Home />
                 </MuiThemeProvider>
                 <br />
               </div>

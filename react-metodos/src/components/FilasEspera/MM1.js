@@ -52,7 +52,6 @@ class MM1 extends Component {
   };
 
   handleEquations = (lambda, miu, n) => {
-    console.log(lambda, miu, n);
     let p = [];
     const l = lambda / (miu - lambda);
     const lq = Math.pow(lambda, 2) / (miu * (miu - lambda));
@@ -67,13 +66,13 @@ class MM1 extends Component {
     this.setState({
       ...this.state,
       res: {
-        l: l,
-        lq: lq,
-        w: w,
-        wq: wq,
-        ro: ro,
-        p0: p0,
-        pn: pn
+        l: l.toFixed(5),
+        lq: lq.toFixed(5),
+        w: w.toFixed(5),
+        wq: wq.toFixed(5),
+        ro: ro.toFixed(5),
+        p0: p0.toFixed(5),
+        pn: pn.toFixed(5)
       }
     });
   };

@@ -1,0 +1,17 @@
+.mg1Card {
+  width: 45%;
+  margin-left: 4%;
+  position: relative;
+  display: inline-block;
+  height: 400px;
+  overflow-y: auto;
+}
+
+.mg1CardTitle {
+  background-color: #e91e63;
+  width: 100%;
+  top: -10px;
+  color: #fff;
+  font-size: 1em;
+  font-weight: lighter;
+}
