@@ -29,7 +29,7 @@ const initialState = {
   res: {}
 };
 
-class MMsK extends Component {
+class MM1k extends Component {
   constructor(props) {
     super();
     this.state = initialState;
@@ -54,100 +54,12 @@ class MMsK extends Component {
   };
 
   handleEquations = (lambda, miu, n, s, k) => {
-    let p = [];
-    let ro = 0;
-    let p0 = 0;
-    let pn = 0;
-    let l = 0;
-    let lq = 0;
-    let w = 0;
-    let wq = 0;
-    let cn = 0;
-    let lambdaE = 0;
-
-    if (s > k) {
-      alert("¡Cuidado! K debe ser mayor que s.");
-    } else {
-      ro = lambda / (miu * s);
-      if (s == 1) {
-        p0 = (1 - ro) / (1 - Math.pow(ro, k + 1));
-        p.push(p0);
-        p.push(Math.pow(ro, n) * p0);
-
-        l =
-          ro /
-          (1 - ro) *
-          ((k + 1) * Math.pow(ro, k + 1) / (1 - Math.pow(ro, k + 1)));
-
-        lq =
-          p0 *
-          Math.pow(lambda / miu, s) *
-          ro /
-          (this.handleFactorial(s) * Math.pow(1 - ro, 2)) *
-          (1 - Math.pow(ro, k - s) - (k - s) * Math.pow(ro, k - s) * (1 - ro));
-
-        if (n <= k) {
-          cn = Math.pow(lambda / miu, n);
-        } else {
-          cn = 0;
-        }
-        lambdaE = lambda * (1 - p[p.length - 1]);
-        wq = lq / lambdaE;
-        w = wq + 1 / miu;
-      } else {
-        p0 =
-          1 /
-          (this.handleSumatoria() +
-            Math.pow(lambda / miu, s) /
-              this.handleFactorial(s) *
-              this.handleSumatoria2());
-        p.push(p0);
-        lq =
-          p0 *
-          Math.pow(lambda / miu, s) *
-          ro /
-          (this.handleFactorial(s) * Math.pow(1 - ro, 2)) *
-          (1 - Math.pow(ro, k - s) - (k - s) * Math.pow(ro, k - s) * (1 - ro));
-
-        if (n < s) {
-          p.push(Math.pow(lambda / miu, n) / this.handleFactorial(n) * p0);
-        } else if (n >= s && n <= k) {
-          p.push(
-            Math.pow(lambda / miu, n) /
-              (this.handleFactorial(s) * Math.pow(s, n - s)) *
-              p0
-          );
-        } else if (n > k) {
-          p.push(0);
-        }
-
-        lambdaE = lambda * (1 - p[p.length - 1]);
-        wq = lq / lambdaE;
-        w = wq + 1 / miu;
-        l = lambdaE * w;
-
-        if (n < s) {
-          cn = Math.pow(lambda / miu, n) / this.handleFactorial(n);
-        } else if (n <= k && n >= s) {
-          cn =
-            Math.pow(lambda / miu, n) /
-            (this.handleFactorial(s) * Math.pow(s, n - s));
-        } else if (n > k) {
-          cn = 0;
-        }
-      }
-    }
-
-    pn = p[p.length - 1];
-
     this.setState({
       ...this.state,
       res: {
         ro: ro.toFixed(5),
         p0: p0.toFixed(5),
         pn: pn.toFixed(5),
-        cn: cn.toFixed(5),
-        lambdaE: lambdaE.toFixed(5),
         lq: lq.toFixed(5),
         l: l.toFixed(5),
         wq: wq.toFixed(5),
@@ -165,40 +77,23 @@ class MMsK extends Component {
       return this.handleFactorial(n - 1) * n;
     }
   };
-
-  handleSumatoria = (lambda, miu, s) => {
-    let res = 0;
-    for (let i = 0; i <= s; i++) {
-      res += Math.pow(lambda / miu, i) / this.handleFactorial(i);
-    }
-    return res;
-  };
-
-  handleSumatoria2 = (lambda, miu, s, k) => {
-    let resultado = 0;
-    for (let i = s + 1; i <= k; i++) {
-      resultado += Math.pow(lambda / (s * miu), i - s);
-    }
-    return resultado;
-  };
-
   render() {
     return (
       <div>
         <MuiThemeProvider>
           <Card>
             <CardHeader
-              title="M/M/s/K"
+              title="M/M/s"
               subtitle="Información"
               actAsExpander={true}
               showExpandableButton={true}
             />
             <CardText expandable={true}>
               <ul>
-                <h2>Modelos de Colas: M/M/s/K</h2>
+                <h2>Modelos de Colas: M/M/1/k</h2>
                 <li>
-                  Es un sistema abierto que contiene uno o más servidores con
-                  tiempos de llegada y servicio Marcovianos.
+                  Es un sistema abierto que contiene un servidor con tiempos de
+                  llegada y servicio Marcovianos.
                 </li>
                 <li>Capacidad Infinita.</li>
                 <li>Fuente de entrada de K clientes en el sistema.</li>
@@ -245,15 +140,6 @@ class MMsK extends Component {
               />
               <TextField
                 margin="normal"
-                label="k"
-                placeholder="K"
-                name="k"
-                onChange={this.handleChange}
-                fullWidth
-                required
-              />
-              <TextField
-                margin="normal"
                 label="s"
                 placeholder="s"
                 name="s"
@@ -277,4 +163,4 @@ class MMsK extends Component {
   }
 }
 
-export default MMsK;
+export default MM1k;
