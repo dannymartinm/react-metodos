@@ -64,43 +64,45 @@ class MMsK extends Component {
     let wq = 0;
     let cn = 0;
     let lambdaE = 0;
+    let pk = 0;
 
     if (s > k) {
       alert("¡Cuidado! K debe ser mayor que s.");
     } else {
-      ro = lambda / (miu * s);
+      ro = lambda / (s * miu);
       if (s == 1) {
         p0 = (1 - ro) / (1 - Math.pow(ro, k + 1));
         p.push(p0);
+
+        //Calculate pn
         p.push(Math.pow(ro, n) * p0);
 
+        //Calculate Pk
+        pk =
+          Math.pow(lambda / miu, k) /
+          (this.handleFactorial(s) * Math.pow(s, k - s)) *
+          p0;
         l =
-          ro /
-          (1 - ro) *
-          ((k + 1) * Math.pow(ro, k + 1) / (1 - Math.pow(ro, k + 1)));
+          ro / (1 - ro) -
+          (k + 1) * Math.pow(ro, k + 1) / (1 - Math.pow(ro, k + 1));
 
-        lq =
-          p0 *
-          Math.pow(lambda / miu, s) *
-          ro /
-          (this.handleFactorial(s) * Math.pow(1 - ro, 2)) *
-          (1 - Math.pow(ro, k - s) - (k - s) * Math.pow(ro, k - s) * (1 - ro));
+        lq = l - 1 * (1 - p0);
 
         if (n <= k) {
           cn = Math.pow(lambda / miu, n);
         } else {
           cn = 0;
         }
-        lambdaE = lambda * (1 - p[p.length - 1]);
+        lambdaE = lambda * (1 - pk);
         wq = lq / lambdaE;
         w = wq + 1 / miu;
       } else {
         p0 =
           1 /
-          (this.handleSumatoria() +
+          (this.handleSumatoria(lambda, miu, s) +
             Math.pow(lambda / miu, s) /
               this.handleFactorial(s) *
-              this.handleSumatoria2());
+              this.handleSumatoria2(lambda, miu, s, k));
         p.push(p0);
         lq =
           p0 *
@@ -121,7 +123,11 @@ class MMsK extends Component {
           p.push(0);
         }
 
-        lambdaE = lambda * (1 - p[p.length - 1]);
+        pk =
+          Math.pow(lambda / miu, k) /
+          (this.handleFactorial(s) * Math.pow(s, k - s)) *
+          p0;
+        lambdaE = lambda * (1 - pk);
         wq = lq / lambdaE;
         w = wq + 1 / miu;
         l = lambdaE * w;
@@ -139,19 +145,22 @@ class MMsK extends Component {
     }
 
     pn = p[p.length - 1];
+    const clProm = 1 - p0;
 
     this.setState({
       ...this.state,
       res: {
         ro: ro.toFixed(5),
         p0: p0.toFixed(5),
+        pk: pk.toFixed(5),
         pn: pn.toFixed(5),
         cn: cn.toFixed(5),
         lambdaE: lambdaE.toFixed(5),
         lq: lq.toFixed(5),
         l: l.toFixed(5),
         wq: wq.toFixed(5),
-        w: w.toFixed(5)
+        w: w.toFixed(5),
+        clProm: clProm.toFixed(5)
       }
     });
   };
