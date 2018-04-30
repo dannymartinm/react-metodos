@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Paper from "material-ui/Paper";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import Home from "./Home";
 import AppBar from "./AppBar";
 import Background from "../images/backgroundNumbers.png";
 

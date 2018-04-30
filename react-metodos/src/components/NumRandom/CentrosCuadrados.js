@@ -5,26 +5,8 @@ import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import imgEq from "../../images/cuadradosMediosImg.png";
 import Send from "material-ui/svg-icons/content/send";
 import FloatingActionButton from "material-ui/FloatingActionButton";
-import RaisedButton from "material-ui/RaisedButton";
-import chiSquaredTest from "chi-squared-test";
-import {
-  Table,
-  TableBody,
-  TableHeader,
-  TableHeaderColumn,
-  TableRow,
-  TableRowColumn
-} from "material-ui/Table";
-import {
-  Card,
-  CardActions,
-  CardHeader,
-  CardMedia,
-  CardTitle,
-  CardText
-} from "material-ui/Card";
-import FlatButton from "material-ui/FlatButton";
-import _ from "lodash";
+
+import { Card, CardHeader, CardText } from "material-ui/Card";
 
 const style = {
   button: {
@@ -69,7 +51,7 @@ class CentrosCuadrados extends Component {
   functionMethod = (x0, iterations) => {
     const randomNums = [];
     for (let i = 0; i < iterations; i++) {
-      const x0f = i == 0 ? x0 : randomNums[i - 1].randomNum;
+      const x0f = i === 0 ? x0 : randomNums[i - 1].randomNum;
       const resp = { iteration: i, x0: x0f, randomNum: this.numGenerator(x0f) };
       randomNums.push(resp);
     }

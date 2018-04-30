@@ -1,13 +1,5 @@
 import React, { Component } from "react";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import {
-  Card,
-  CardActions,
-  CardHeader,
-  CardMedia,
-  CardTitle,
-  CardText
-} from "material-ui/Card";
 import Paper from "material-ui/Paper";
 import TextField from "material-ui/TextField";
 import FloatingActionButton from "material-ui/FloatingActionButton";
@@ -52,24 +44,20 @@ class MG1 extends Component {
 
   handleEquations = (lambda, miu, n, desvS) => {
     //Siempre s=1 para este caso
-    const p = [];
+
     const ro = lambda / miu;
     let varianza = 0;
     if (ro < 1) {
       const p0 = 1 - ro;
       const pn = Math.pow(ro, n) * p0;
-      const media = 1 / miu;
+      //const media = 1 / miu;
       if (desvS === 0) {
         varianza = 1 / Math.pow(miu, 2);
-        console.log("v", varianza);
       } else {
         varianza = Math.pow(desvS, 2);
-        console.log(varianza);
       }
-      console.log(lambda, varianza, ro);
       const lq =
         (Math.pow(lambda, 2) * varianza + Math.pow(ro, 2)) / (2 * (1 - ro));
-      console.log(lq);
       const l = ro + lq;
       const wq = lq / lambda;
       const w = wq + 1 / miu;

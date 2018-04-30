@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import logo from "../../logo.svg";
 import "../../App.css";
 import { Tabs, Tab } from "material-ui/Tabs";
 import SwipeableViews from "react-swipeable-views";

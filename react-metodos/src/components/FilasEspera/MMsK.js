@@ -1,13 +1,6 @@
 import React, { Component } from "react";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import {
-  Card,
-  CardActions,
-  CardHeader,
-  CardMedia,
-  CardTitle,
-  CardText
-} from "material-ui/Card";
+import { Card, CardHeader, CardText } from "material-ui/Card";
 import Paper from "material-ui/Paper";
 import TextField from "material-ui/TextField";
 import FloatingActionButton from "material-ui/FloatingActionButton";
@@ -70,7 +63,7 @@ class MMsK extends Component {
       alert("¡Cuidado! K debe ser mayor que s.");
     } else {
       ro = lambda / (s * miu);
-      if (s == 1) {
+      if (s === 1) {
         p0 = (1 - ro) / (1 - Math.pow(ro, k + 1));
         p.push(p0);
 
@@ -166,9 +159,9 @@ class MMsK extends Component {
   };
 
   handleFactorial = n => {
-    if (n == 1) {
+    if (n === 1) {
       return 1;
-    } else if (n == 0) {
+    } else if (n === 0) {
       return 1;
     } else {
       return this.handleFactorial(n - 1) * n;

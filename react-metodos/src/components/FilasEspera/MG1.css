@@ -1,8 +1,8 @@
 .mg1Card {
-  width: 45%;
+  width: 40%;
   margin-left: 4%;
+  float: left;
   position: relative;
-  display: inline-block;
   height: 400px;
   overflow-y: auto;
 }
@@ -17,15 +17,34 @@
 }
 
 .md1Card {
-  width: 45%;
+  width: 40%;
   margin-left: 4%;
   position: relative;
-  display: inline-block;
+  float: left;
   height: 400px;
   overflow-y: auto;
 }
 
 .md1CardTitle {
+  background-color: #e91e63;
+  width: 100%;
+  top: -10px;
+  color: #fff;
+  font-size: 1em;
+  font-weight: lighter;
+}
+
+.mekCard {
+  width: 40%;
+  margin-left: 4%;
+  position: relative;
+  float: center;
+  margin: auto;
+  height: 400px;
+  overflow-y: auto;
+}
+
+.mekCardTitle {
   background-color: #e91e63;
   width: 100%;
   top: -10px;

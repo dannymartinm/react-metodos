@@ -157,7 +157,6 @@ class Mixto extends Component {
       array.push(Number(o.randomNum));
     });
 
-    console.log(array);
     const aleatorios = array.sort();
     const N = aleatorios.length;
     const max = aleatorios[aleatorios.length - 1];
@@ -221,7 +220,7 @@ class Mixto extends Component {
 
     const v = k - 1 - 1;
     const message = [];
-    if (this.state.selected == 0.05) {
+    if (this.state.selected === 0.05) {
       if (sumFinal < this.state.chi[0][v - 1]) {
         const res = {
           m:
@@ -283,9 +282,9 @@ class Mixto extends Component {
     console.log(this.state);
     if (this.primosRelativos(m, c)) {
       let q = this.findPrimos(m)[0];
-      if ((a - 1) % q == 0) {
-        if (m % 4 == 0) {
-          if ((a - 1) % 4 == 0) {
+      if ((a - 1) % q === 0) {
+        if (m % 4 === 0) {
+          if ((a - 1) % 4 === 0) {
             validations.push({ m: "Sí cumple con el teorema" });
             console.log("Sí cumple con el teorema");
           } else {
@@ -306,7 +305,7 @@ class Mixto extends Component {
     }
     const randomNums = [];
     for (let i = 0; i < iterations; i++) {
-      const x0f = i == 0 ? x0 : randomNums[i - 1].randomNum * m;
+      const x0f = i === 0 ? x0 : randomNums[i - 1].randomNum * m;
       const operation = this.numGenerator(x0f, a, c, m);
       const res = {
         iteracion: i,
@@ -328,7 +327,7 @@ class Mixto extends Component {
 
     for (let i = 0; i < a.length; i++) {
       for (let j = 0; j < b.length; j++) {
-        if (a[i] == b[j]) {
+        if (a[i] === b[j]) {
           return false;
         }
       }
@@ -341,7 +340,7 @@ class Mixto extends Component {
     let primosDivs = [];
 
     for (let i = 0; i < primos.length; i++) {
-      if (n % primos[i] == 0) {
+      if (n % primos[i] === 0) {
         primosDivs.push(primos[i]);
       }
     }
@@ -355,7 +354,7 @@ class Mixto extends Component {
     }
     for (let j = 1; j < a.length; j++) {
       for (let k = j + 1; k < a.length; k++) {
-        if (a[k] % a[j] == 0) {
+        if (a[k] % a[j] === 0) {
           a.splice(k, 1);
         }
       }
@@ -395,7 +394,7 @@ class Mixto extends Component {
       frec.push(fe * (i + 1));
       fdx.push(1 - Math.exp(-lamb * arreglados2[i]));
       f1.push(Math.abs(frec[i] - fdx[i]));
-      if (i == 0) {
+      if (i === 0) {
         f2.push(Math.abs(fdx[i] - 0));
       } else {
         f2.push(Math.abs(fdx[i] - frec[i - 1]));
@@ -411,7 +410,7 @@ class Mixto extends Component {
       f = f1max;
     }
 
-    if (this.state.selectK == 1) {
+    if (this.state.selectK === 1) {
       if (arreglados2.length < 21) {
         let ajustada =
           f *
@@ -457,7 +456,7 @@ class Mixto extends Component {
             0.12 +
             0.11 / Math.sqrt(arreglados2.length));
         let compareKS = 0;
-        if (this.state.selectedSK == 0) {
+        if (this.state.selectedSK === 0) {
           compareKS = 1.36 / Math.sqrt(arreglados2.length);
         } else {
           compareKS = 1.22 / Math.sqrt(arreglados2.length);
@@ -525,7 +524,7 @@ class Mixto extends Component {
         }
       } else {
         let compareKS = 0;
-        if (this.state.selectedSK == 0) {
+        if (this.state.selectedSK === 0) {
           compareKS = 1.36 / Math.sqrt(arreglados2.length);
         } else {
           compareKS = 1.22 / Math.sqrt(arreglados2.length);

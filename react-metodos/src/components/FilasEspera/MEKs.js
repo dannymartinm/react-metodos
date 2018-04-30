@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+
 import Paper from "material-ui/Paper";
 import TextField from "material-ui/TextField";
 import FloatingActionButton from "material-ui/FloatingActionButton";
@@ -14,10 +15,12 @@ const initialState = {
   lambda: 0,
   miu: 0,
   n: 0,
+  s: 0,
+  k: 0,
   res: {}
 };
 
-class MD1 extends Component {
+class MEKs extends Component {
   constructor(props) {
     super();
     this.state = initialState;
@@ -36,25 +39,30 @@ class MD1 extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    const { lambda, miu, n } = this.state;
-    this.setState({ lambda: lambda, miu: miu, n: n, res: {} });
-    this.handleEquations(lambda, miu, n);
+    const { lambda, miu, n, s, k } = this.state;
+    this.setState({
+      lambda: lambda,
+      miu: miu,
+      n: n,
+      s: s,
+      k: k,
+      res: {}
+    });
+    this.handleEquations(lambda, miu, n, s, k);
   };
 
-  handleEquations = (lambda, miu, n) => {
-    //tiempo de servicio constantes: Distribución estándar. Ej: Caseta de cobro con puro TAG.
-    //siempre s=1 para este caso
-    //siempre varianza = 0
-    //Este es un caso especial del MG1, cuando el tiempo de servicio cte la varianza es = 0
-
-    const ro = lambda / miu;
+  handleEquations = (lambda, miu, n, s, k) => {
+    //Distribución de Erlang de tiempos de servicio
+    //Distribución no uniforme, s servidores con tiempos entre llegadas exponenciales.
+    const ro = lambda / (miu * s);
     if (ro < 1) {
       const p0 = 1 - ro;
       const pn = Math.pow(ro, n) * p0;
-      const lq = Math.pow(ro, 2) / (2 * (1 - ro));
-      const l = ro + lq;
+      const lq =
+        (1 + k) / (2 * k) * (Math.pow(lambda, 2) / (miu * (miu - lambda)));
       const wq = lq / lambda;
       const w = wq + 1 / miu;
+      const l = lambda * w;
 
       this.setState({
         ...this.state,
@@ -106,6 +114,24 @@ class MD1 extends Component {
                 fullWidth
                 required
               />
+              <TextField
+                margin="normal"
+                label="k"
+                placeholder="k"
+                name="k"
+                onChange={this.handleChange}
+                fullWidth
+                required
+              />
+              <TextField
+                margin="normal"
+                label="s"
+                placeholder="s"
+                name="s"
+                onChange={this.handleChange}
+                fullWidth
+                required
+              />
               <FloatingActionButton
                 secondary={true}
                 type="submit"
@@ -122,4 +148,4 @@ class MD1 extends Component {
   }
 }
 
-export default MD1;
+export default MEKs;

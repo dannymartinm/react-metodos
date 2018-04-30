@@ -1,13 +1,6 @@
 import React, { Component } from "react";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import {
-  Card,
-  CardActions,
-  CardHeader,
-  CardMedia,
-  CardTitle,
-  CardText
-} from "material-ui/Card";
+import { Card, CardHeader, CardText } from "material-ui/Card";
 import Paper from "material-ui/Paper";
 import TextField from "material-ui/TextField";
 import FloatingActionButton from "material-ui/FloatingActionButton";
@@ -85,16 +78,16 @@ class MMs extends Component {
           p0
       );
     }
-    //Calculate Cn
-    // if (n < s) {
-    //   cn = Math.pow(lambda / miu, n) / this.handleFactorial(n);
-    // }
+    // Calculate Cn
+    if (n < s) {
+      cn = Math.pow(lambda / miu, n) / this.handleFactorial(n);
+    }
 
-    // if (n >= s) {
-    //   cn =
-    //     Math.pow(lambda / miu, n) /
-    //     (this.handleFactorial(s) * Math.pow(s, n - s));
-    // }
+    if (n >= s) {
+      cn =
+        Math.pow(lambda / miu, n) /
+        (this.handleFactorial(s) * Math.pow(s, n - s));
+    }
     let count = 1;
     while (count <= n) {
       p.push(
@@ -114,15 +107,16 @@ class MMs extends Component {
         lq: lq.toFixed(5),
         l: l.toFixed(5),
         wq: wq.toFixed(5),
-        w: w.toFixed(5)
+        w: w.toFixed(5),
+        cn: cn
       }
     });
   };
 
   handleFactorial = n => {
-    if (n == 1) {
+    if (n === 1) {
       return 1;
-    } else if (n == 0) {
+    } else if (n === 0) {
       return 1;
     } else {
       return this.handleFactorial(n - 1) * n;
