@@ -18,7 +18,7 @@ const initialState = {
   miu: 0,
   n: 0,
   s: 0,
-  cfila: 0, 
+  cfila: 0,
   cservicio: 0,
   res: {},
   resultado: [],
@@ -51,19 +51,20 @@ class MMs extends Component {
 
   handleSubmitCosto = e => {
     e.preventDefault();
-    const {cfila, cservicio } = this.state;
-    this.setState({ cfila: cfila, cservicio: cservicio});
+    const { cfila, cservicio } = this.state;
+    this.setState({ cfila: cfila, cservicio: cservicio });
     this.handleEquationsCosto(cfila, cservicio);
   };
 
   handleEquationsCosto = (cfila, cservicio) => {
     const lqc = this.state.resultado[0].lq;
     const sc = this.state.s;
-    const costo = lqc*cfila +  sc* cservicio;
+    const costo = lqc * cfila + sc * cservicio;
     const c = {
-      costo : costo.toFixed(5)};
+      costo: costo.toFixed(5)
+    };
     this.state.resC.push(c);
-  }
+  };
 
   handleEquations = (lambda, miu, n, s) => {
     let p = [];
@@ -128,17 +129,19 @@ class MMs extends Component {
           l: l.toFixed(5),
           wq: wq.toFixed(5),
           w: w.toFixed(5),
-          cn: cn
+          cn: cn.toFixed(5)
         }
       });
-      const r = {l: l.toFixed(5),
-          lq: lq.toFixed(5),
-          w: w.toFixed(5),
-          wq: wq.toFixed(5),
-          ro: ro.toFixed(5),
-          p0: p0.toFixed(5),
-          pn: pn.toFixed(5),
-          cn : cn};
+      const r = {
+        l: l.toFixed(5),
+        lq: lq.toFixed(5),
+        w: w.toFixed(5),
+        wq: wq.toFixed(5),
+        ro: ro.toFixed(5),
+        p0: p0.toFixed(5),
+        pn: pn.toFixed(5),
+        cn: cn.toFixed(5)
+      };
       this.state.resultado.push(r);
     } else {
       alert("Ro debe ser menor que 1");
@@ -227,47 +230,54 @@ class MMs extends Component {
                 <Send />
               </FloatingActionButton>
             </form>
-          </Paper>          
+          </Paper>
           <Paper style={{ padding: 16, marginBottom: 8 }}>
             <h2>Resultados</h2>
             {this.state.resultado !== []
-                  ? this.state.resultado.map((row, i) => (
+              ? this.state.resultado.map((row, i) => (
                   <div id="res">
-                      <label>
-                       L: 
-                       <a>{row.l}</a>
-                      </label> <p></p>
-                      <label>
-                       Lq:
-                       <a>{row.lq}</a>
-                      </label> <p></p>
-                      <label> 
-                       W:
-                       <a>{row.w}</a>
-                      </label> <p></p>
-                      <label>
-                       Wq: 
-                       <a>{row.wq}</a>
-                      </label> <p></p>
-                      <label>
-                       Ro:
-                       <a>{row.ro}</a>
-                      </label> <p></p>
-                      <label>
-                       P0:
-                       <a>{row.p0}</a>
-                      </label> <p></p>
-                      <label>
-                       Pn:
-                       <a>{row.pn}</a>
-                      </label> <p></p>
-                      <label>
-                       Cn:
-                       <a>{row.cn}</a>
-                      </label>
+                    <label>
+                      L:
+                      <a>{row.l}</a>
+                    </label>{" "}
+                    <p />
+                    <label>
+                      Lq:
+                      <a>{row.lq}</a>
+                    </label>{" "}
+                    <p />
+                    <label>
+                      W:
+                      <a>{row.w}</a>
+                    </label>{" "}
+                    <p />
+                    <label>
+                      Wq:
+                      <a>{row.wq}</a>
+                    </label>{" "}
+                    <p />
+                    <label>
+                      Ro:
+                      <a>{row.ro}</a>
+                    </label>{" "}
+                    <p />
+                    <label>
+                      P0:
+                      <a>{row.p0}</a>
+                    </label>{" "}
+                    <p />
+                    <label>
+                      Pn:
+                      <a>{row.pn}</a>
+                    </label>{" "}
+                    <p />
+                    <label>
+                      Cn:
+                      <a>{row.cn}</a>
+                    </label>
                   </div>
-                    ))
-                  : null}
+                ))
+              : null}
           </Paper>
 
           <Paper style={{ padding: 16, marginBottom: 8 }}>
@@ -303,16 +313,16 @@ class MMs extends Component {
           <Paper style={{ padding: 16, marginBottom: 8 }}>
             <h2>Costo Total del Sistema</h2>
             {this.state.resC !== []
-                  ? this.state.resC.map((row, i) => (
+              ? this.state.resC.map((row, i) => (
                   <div id="res">
-                      <label>
-                       CT: 
-                       <a>{row.costo}</a>
-                      </label> <p></p>
-                      
+                    <label>
+                      CT:
+                      <a>{row.costo}</a>
+                    </label>{" "}
+                    <p />
                   </div>
-                    ))
-                  : null}
+                ))
+              : null}
           </Paper>
         </MuiThemeProvider>
       </div>

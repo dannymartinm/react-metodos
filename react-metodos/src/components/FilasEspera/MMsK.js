@@ -56,13 +56,14 @@ class MMsK extends Component {
   };
 
   handleEquationsCosto = (cfila, cservicio) => {
-  	const lqc = this.state.resultado[0].lq;
+    const lqc = this.state.resultado[0].lq;
     const sc = this.state.s;
-    const costo = lqc*cfila +  sc* cservicio;
+    const costo = lqc * cfila + sc * cservicio;
     const c = {
-      costo : costo.toFixed(5)};
+      costo: costo.toFixed(5)
+    };
     this.state.resC.push(c);
-  }
+  };
 
   handleEquations = (lambda, miu, n, s, k) => {
     let p = [];
@@ -77,88 +78,93 @@ class MMsK extends Component {
     let lambdaE = 0;
     let pk = 0;
     ro = lambda / (s * miu);
+    let clProm = 0;
     if (s > k) {
-      alert("¡Cuidado! K debe ser mayor que s.");
-    } if(ro > 1){
-    	alert("Ro debe ser menor que 1");
+      alert("K debe ser mayor que s.");
     } else {
-      
-      if (s === 1) {
-        p0 = (1 - ro) / (1 - Math.pow(ro, k + 1));
-        p.push(p0);
-
-        //Calculate pn
-        p.push(Math.pow(ro, n) * p0);
-
-        //Calculate Pk
-        pk =
-          Math.pow(lambda / miu, k) /
-          (this.handleFactorial(s) * Math.pow(s, k - s)) *
-          p0;
-        l =
-          ro / (1 - ro) -
-          (k + 1) * Math.pow(ro, k + 1) / (1 - Math.pow(ro, k + 1));
-
-        lq = l - 1 * (1 - p0);
-
-        if (n <= k) {
-          cn = Math.pow(lambda / miu, n);
-        } else {
-          cn = 0;
-        }
-        lambdaE = lambda * (1 - pk);
-        wq = lq / lambdaE;
-        w = wq + 1 / miu;
+      if (ro > 1) {
+        alert("Ro debe ser menor que 1");
       } else {
-        p0 =
-          1 /
-          (this.handleSumatoria(lambda, miu, s) +
-            Math.pow(lambda / miu, s) /
-              this.handleFactorial(s) *
-              this.handleSumatoria2(lambda, miu, s, k));
-        p.push(p0);
-        lq =
-          p0 *
-          Math.pow(lambda / miu, s) *
-          ro /
-          (this.handleFactorial(s) * Math.pow(1 - ro, 2)) *
-          (1 - Math.pow(ro, k - s) - (k - s) * Math.pow(ro, k - s) * (1 - ro));
+        if (s === 1) {
+          //MMS1
+          p0 = (1 - ro) / (1 - Math.pow(ro, k + 1));
+          p.push(p0);
 
-        if (n < s) {
-          p.push(Math.pow(lambda / miu, n) / this.handleFactorial(n) * p0);
-        } else if (n >= s && n <= k) {
-          p.push(
-            Math.pow(lambda / miu, n) /
-              (this.handleFactorial(s) * Math.pow(s, n - s)) *
-              p0
-          );
-        } else if (n > k) {
-          p.push(0);
-        }
+          //Calculate pn
+          p.push(Math.pow(ro, n) * p0);
 
-        pk =
-          Math.pow(lambda / miu, k) /
-          (this.handleFactorial(s) * Math.pow(s, k - s)) *
-          p0;
-        lambdaE = lambda * (1 - pk);
-        wq = lq / lambdaE;
-        w = wq + 1 / miu;
-        l = lambdaE * w;
+          //Calculate Pk
+          pk =
+            Math.pow(lambda / miu, k) /
+            (this.handleFactorial(s) * Math.pow(s, k - s)) *
+            p0;
+          l =
+            ro / (1 - ro) -
+            (k + 1) * Math.pow(ro, k + 1) / (1 - Math.pow(ro, k + 1));
 
-        if (n < s) {
-          cn = Math.pow(lambda / miu, n) / this.handleFactorial(n);
-        } else if (n <= k && n >= s) {
-          cn =
-            Math.pow(lambda / miu, n) /
-            (this.handleFactorial(s) * Math.pow(s, n - s));
-        } else if (n > k) {
-          cn = 0;
+          lq = l - 1 * (1 - p0);
+
+          if (n <= k) {
+            cn = Math.pow(lambda / miu, n);
+          } else {
+            cn = 0;
+          }
+          lambdaE = lambda * (1 - pk);
+          wq = lq / lambdaE;
+          w = wq + 1 / miu;
+        } else {
+          //MMSK
+          p0 =
+            1 /
+            (this.handleSumatoria(lambda, miu, s) +
+              Math.pow(lambda / miu, s) /
+                this.handleFactorial(s) *
+                this.handleSumatoria2(lambda, miu, s, k));
+          p.push(p0);
+          lq =
+            p0 *
+            Math.pow(lambda / miu, s) *
+            ro /
+            (this.handleFactorial(s) * Math.pow(1 - ro, 2)) *
+            (1 -
+              Math.pow(ro, k - s) -
+              (k - s) * Math.pow(ro, k - s) * (1 - ro));
+
+          if (n < s) {
+            p.push(Math.pow(lambda / miu, n) / this.handleFactorial(n) * p0);
+          } else if (n >= s && n <= k) {
+            p.push(
+              Math.pow(lambda / miu, n) /
+                (this.handleFactorial(s) * Math.pow(s, n - s)) *
+                p0
+            );
+          } else if (n > k) {
+            p.push(0);
+          }
+
+          pk =
+            Math.pow(lambda / miu, k) /
+            (this.handleFactorial(s) * Math.pow(s, k - s)) *
+            p0;
+          lambdaE = lambda * (1 - pk);
+          wq = lq / lambdaE;
+          w = wq + 1 / miu;
+          l = lambdaE * w;
+
+          if (n < s) {
+            cn = Math.pow(lambda / miu, n) / this.handleFactorial(n);
+          } else if (n <= k && n >= s) {
+            cn =
+              Math.pow(lambda / miu, n) /
+              (this.handleFactorial(s) * Math.pow(s, n - s));
+          } else if (n > k) {
+            cn = 0;
+          }
+          pn = p[p.length - 1];
+          clProm = 1 - p0;
         }
       }
     }
-
-    pn = p[p.length - 1];
-    const clProm = 1 - p0;
 
     this.setState({
       ...this.state,
@@ -176,17 +182,19 @@ class MMsK extends Component {
         clProm: clProm.toFixed(5)
       }
     });
-    const r = {l: l.toFixed(5),
-        lq: lq.toFixed(5),
-        w: w.toFixed(5),
-        wq: wq.toFixed(5),
-        ro: ro.toFixed(5),
-        p0: p0.toFixed(5),
-        pn: pn.toFixed(5),
-        pk: pk.toFixed(5),
-        lambdaE: lambdaE.toFixed(5),
-        clProm: clProm.toFixed(5),
-        cn : cn.toFixed(5)};
+    const r = {
+      l: l.toFixed(5),
+      lq: lq.toFixed(5),
+      w: w.toFixed(5),
+      wq: wq.toFixed(5),
+      ro: ro.toFixed(5),
+      p0: p0.toFixed(5),
+      pn: pn.toFixed(5),
+      pk: pk.toFixed(5),
+      lambdaE: lambdaE.toFixed(5),
+      clProm: clProm.toFixed(5),
+      cn: cn.toFixed(5)
+    };
     this.state.resultado.push(r);
   };
 
@@ -307,55 +315,65 @@ class MMsK extends Component {
           <Paper style={{ padding: 16, marginBottom: 8 }}>
             <h2>Resultados</h2>
             {this.state.resultado !== []
-                  ? this.state.resultado.map((row, i) => (
+              ? this.state.resultado.map((row, i) => (
                   <div id="res">
-                      <label>
-                       L: 
-                       <a>{row.l}</a>
-                      </label> <p></p>
-                      <label>
-                       Lq:
-                       <a>{row.lq}</a>
-                      </label> <p></p>
-                      <label> 
-                       W:
-                       <a>{row.w}</a>
-                      </label> <p></p>
-                      <label>
-                       Wq: 
-                       <a>{row.wq}</a>
-                      </label> <p></p>
-                      <label>
-                       Ro:
-                       <a>{row.ro}</a>
-                      </label> <p></p>
-                      <label>
-                       P0:
-                       <a>{row.p0}</a>
-                      </label> <p></p>
-                      <label>
-                       Pn:
-                       <a>{row.pn}</a>
-                      </label> <p></p>
-                      <label>
-                       Pk:
-                       <a>{row.pk}</a>
-                      </label> <p></p>
-                      <label>
-                       Lambde E:
-                       <a>{row.lambdaE}</a>
-                      </label> <p></p>
-                      <label>
-                       Cl Promedio:
-                       <a>{row.clProm}</a>
-                      </label> <p></p>
-                      <label>
-                       Cn:
-                       <a>{row.cn}</a>
-                      </label>
+                    <label>
+                      L:
+                      <a>{row.l}</a>
+                    </label>{" "}
+                    <p />
+                    <label>
+                      Lq:
+                      <a>{row.lq}</a>
+                    </label>{" "}
+                    <p />
+                    <label>
+                      W:
+                      <a>{row.w}</a>
+                    </label>{" "}
+                    <p />
+                    <label>
+                      Wq:
+                      <a>{row.wq}</a>
+                    </label>{" "}
+                    <p />
+                    <label>
+                      Ro:
+                      <a>{row.ro}</a>
+                    </label>{" "}
+                    <p />
+                    <label>
+                      P0:
+                      <a>{row.p0}</a>
+                    </label>{" "}
+                    <p />
+                    <label>
+                      Pn:
+                      <a>{row.pn}</a>
+                    </label>{" "}
+                    <p />
+                    <label>
+                      Pk:
+                      <a>{row.pk}</a>
+                    </label>{" "}
+                    <p />
+                    <label>
+                      Lambde E:
+                      <a>{row.lambdaE}</a>
+                    </label>{" "}
+                    <p />
+                    <label>
+                      Cl Promedio:
+                      <a>{row.clProm}</a>
+                    </label>{" "}
+                    <p />
+                    <label>
+                      Cn:
+                      <a>{row.cn}</a>
+                    </label>
                   </div>
-                    ))
-                  : null}
+                ))
+              : null}
           </Paper>
 
           <Paper style={{ padding: 16, marginBottom: 8 }}>
@@ -391,16 +409,16 @@ class MMsK extends Component {
           <Paper style={{ padding: 16, marginBottom: 8 }}>
             <h2>Costo Total del Sistema</h2>
             {this.state.resC !== []
-                  ? this.state.resC.map((row, i) => (
+              ? this.state.resC.map((row, i) => (
                   <div id="res">
-                      <label>
-                       CT: 
-                       <a>{row.costo}</a>
-                      </label> <p></p>
-                      
+                    <label>
+                      CT:
+                      <a>{row.costo}</a>
+                    </label>{" "}
+                    <p />
                   </div>
-                    ))
-                  : null}
+                ))
+              : null}
           </Paper>
         </MuiThemeProvider>
       </div>
