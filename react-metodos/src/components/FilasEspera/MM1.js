@@ -64,36 +64,40 @@ class MM1 extends Component {
 
   handleEquations = (lambda, miu, n) => {
     let p = [];
-    const l = lambda / (miu - lambda);
-    const lq = Math.pow(lambda, 2) / (miu * (miu - lambda));
-    const w = l / lambda;
-    const wq = lq / lambda;
     const ro = lambda / miu;
-    const p0 = 1 - ro;
-    p[0] = p0;
-    p.push(Math.pow(ro, n) * (1 - ro));
-    const pn = p[p.length - 1];
+    if (ro < 1) {
+      const l = lambda / (miu - lambda);
+      const lq = Math.pow(lambda, 2) / (miu * (miu - lambda));
+      const w = l / lambda;
+      const wq = lq / lambda;
+      const p0 = 1 - ro;
+      p[0] = p0;
+      p.push(Math.pow(ro, n) * (1 - ro));
+      const pn = p[p.length - 1];
 
-    this.setState({
-      ...this.state,
-      res: {
-        l: l.toFixed(5),
-        lq: lq.toFixed(5),
-        w: w.toFixed(5),
-        wq: wq.toFixed(5),
-        ro: ro.toFixed(5),
-        p0: p0.toFixed(5),
-        pn: pn.toFixed(5)
-      }
-    });
-    const r = {l: l.toFixed(5),
-        lq: lq.toFixed(5),
-        w: w.toFixed(5),
-        wq: wq.toFixed(5),
-        ro: ro.toFixed(5),
-        p0: p0.toFixed(5),
-        pn: pn.toFixed(5)};
-    this.state.resultado.push(r);
+      this.setState({
+        ...this.state,
+        res: {
+          l: l.toFixed(5),
+          lq: lq.toFixed(5),
+          w: w.toFixed(5),
+          wq: wq.toFixed(5),
+          ro: ro.toFixed(5),
+          p0: p0.toFixed(5),
+          pn: pn.toFixed(5)
+        }
+      });
+      const r = {l: l.toFixed(5),
+          lq: lq.toFixed(5),
+          w: w.toFixed(5),
+          wq: wq.toFixed(5),
+          ro: ro.toFixed(5),
+          p0: p0.toFixed(5),
+          pn: pn.toFixed(5)};
+      this.state.resultado.push(r);
+    }else {
+      alert("Ro debe ser menor que 1");
+    }
   };
 
   render() {
