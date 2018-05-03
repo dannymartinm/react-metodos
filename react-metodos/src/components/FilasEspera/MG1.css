@@ -42,6 +42,7 @@
   margin: auto;
   height: 400px;
   overflow-y: auto;
+  top: 30px;
 }
 
 .mekCardTitle {
