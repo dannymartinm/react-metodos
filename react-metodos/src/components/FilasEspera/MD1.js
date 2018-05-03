@@ -46,18 +46,19 @@ class MD1 extends Component {
   handleSubmitCosto = e => {
     e.preventDefault();
     const { cfila, cservicio } = this.state;
-    this.setState({ cfila: cfila, cservicio: cservicio});
+    this.setState({ cfila: cfila, cservicio: cservicio });
     this.handleEquationsCosto(cfila, cservicio);
   };
 
   handleEquationsCosto = (cfila, cservicio) => {
     const lqc = this.state.resultado[0].lq;
     const sc = 1;
-    const costo = lqc*cfila +  sc* cservicio;
+    const costo = lqc * cfila + sc * cservicio;
     const c = {
-      costo : costo.toFixed(5)};
+      costo: costo.toFixed(5)
+    };
     this.state.resC.push(c);
-  }
+  };
 
   handleEquations = (lambda, miu, n) => {
     //tiempo de servicio constantes: Distribución estándar. Ej: Caseta de cobro con puro TAG.
@@ -86,14 +87,16 @@ class MD1 extends Component {
           wq: wq.toFixed(5)
         }
       });
-      const r = {l: l.toFixed(5),
+      const r = {
+        l: l.toFixed(5),
         lq: lq.toFixed(5),
         w: w.toFixed(5),
         wq: wq.toFixed(5),
         ro: ro.toFixed(5),
         p0: p0.toFixed(5),
-        pn: pn.toFixed(5)};
-    this.state.resultado.push(r);
+        pn: pn.toFixed(5)
+      };
+      this.state.resultado.push(r);
     } else {
       alert("Ro debe ser menor a 1");
     }
@@ -144,39 +147,45 @@ class MD1 extends Component {
           <Paper style={{ padding: 16, marginBottom: 8 }}>
             <h2>Resultados</h2>
             {this.state.resultado !== []
-                  ? this.state.resultado.map((row, i) => (
+              ? this.state.resultado.map((row, i) => (
                   <div id="res">
-                      <label>
-                       L: 
-                       <a>{row.l}</a>
-                      </label> <p></p>
-                      <label>
-                       Lq:
-                       <a>{row.lq}</a>
-                      </label> <p></p>
-                      <label> 
-                       W:
-                       <a>{row.w}</a>
-                      </label> <p></p>
-                      <label>
-                       Wq: 
-                       <a>{row.wq}</a>
-                      </label> <p></p>
-                      <label>
-                       Ro:
-                       <a>{row.ro}</a>
-                      </label> <p></p>
-                      <label>
-                       P0:
-                       <a>{row.p0}</a>
-                      </label> <p></p>
-                      <label>
-                       Pn:
-                       <a>{row.pn}</a>
-                      </label>
+                    <label>
+                      L:
+                      <a>{"\t" + row.l + "\t clientes"}</a>
+                    </label>
+                    <p />
+                    <label>
+                      Lq:
+                      <a>{"\t" + row.lq + "\t clientes"}</a>
+                    </label>
+                    <p />
+                    <label>
+                      W:
+                      <a>{"\t" + row.w + "\t horas"}</a>
+                    </label>
+                    <p />
+                    <label>
+                      Wq:
+                      <a>{"\t" + row.wq + "\t horas"}</a>
+                    </label>
+                    <p />
+                    <label>
+                      Ro:
+                      <a>{row.ro}</a>
+                    </label>
+                    <p />
+                    <label>
+                      P0:
+                      <a>{row.p0}</a>
+                    </label>
+                    <p />
+                    <label>
+                      Pn:
+                      <a>{row.pn}</a>
+                    </label>
                   </div>
-                    ))
-                  : null}
+                ))
+              : null}
           </Paper>
 
           <Paper style={{ padding: 16, marginBottom: 8 }}>
@@ -212,16 +221,16 @@ class MD1 extends Component {
           <Paper style={{ padding: 16, marginBottom: 8 }}>
             <h2>Costo Total del Sistema</h2>
             {this.state.resC !== []
-                  ? this.state.resC.map((row, i) => (
+              ? this.state.resC.map((row, i) => (
                   <div id="res">
-                      <label>
-                       CT: 
-                       <a>{row.costo}</a>
-                      </label> <p></p>
-                      
+                    <label>
+                      CT:
+                      <a>{row.costo}</a>
+                    </label>{" "}
+                    <p />
                   </div>
-                    ))
-                  : null}
+                ))
+              : null}
           </Paper>
         </MuiThemeProvider>
       </div>

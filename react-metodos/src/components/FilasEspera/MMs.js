@@ -238,38 +238,38 @@ class MMs extends Component {
                   <div id="res">
                     <label>
                       L:
-                      <a>{row.l}</a>
-                    </label>{" "}
+                      <a>{"\t" + row.l + "\t clientes"}</a>
+                    </label>
                     <p />
                     <label>
                       Lq:
-                      <a>{row.lq}</a>
-                    </label>{" "}
+                      <a>{"\t" + row.lq + "\t clientes"}</a>
+                    </label>
                     <p />
                     <label>
                       W:
-                      <a>{row.w}</a>
-                    </label>{" "}
+                      <a>{"\t" + row.w + "\t horas"}</a>
+                    </label>
                     <p />
                     <label>
                       Wq:
-                      <a>{row.wq}</a>
-                    </label>{" "}
+                      <a>{"\t" + row.wq + "\t horas"}</a>
+                    </label>
                     <p />
                     <label>
                       Ro:
                       <a>{row.ro}</a>
-                    </label>{" "}
+                    </label>
                     <p />
                     <label>
                       P0:
                       <a>{row.p0}</a>
-                    </label>{" "}
+                    </label>
                     <p />
                     <label>
                       Pn:
                       <a>{row.pn}</a>
-                    </label>{" "}
+                    </label>
                     <p />
                     <label>
                       Cn:
