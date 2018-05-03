@@ -89,10 +89,8 @@ class MMsK extends Component {
           //MMS1
           p0 = (1 - ro) / (1 - Math.pow(ro, k + 1));
           p.push(p0);
-
           //Calculate pn
           p.push(Math.pow(ro, n) * p0);
-
           //Calculate Pk
           pk =
             Math.pow(lambda / miu, k) /
@@ -101,9 +99,7 @@ class MMsK extends Component {
           l =
             ro / (1 - ro) -
             (k + 1) * Math.pow(ro, k + 1) / (1 - Math.pow(ro, k + 1));
-
           lq = l - 1 * (1 - p0);
-
           if (n <= k) {
             cn = Math.pow(lambda / miu, n);
           } else {
@@ -112,6 +108,8 @@ class MMsK extends Component {
           lambdaE = lambda * (1 - pk);
           wq = lq / lambdaE;
           w = wq + 1 / miu;
+          pn = p[p.length - 1];
+          clProm = 1 - p0;
         } else {
           //MMSK
           p0 =
@@ -129,7 +127,6 @@ class MMsK extends Component {
             (1 -
               Math.pow(ro, k - s) -
               (k - s) * Math.pow(ro, k - s) * (1 - ro));
-
           if (n < s) {
             p.push(Math.pow(lambda / miu, n) / this.handleFactorial(n) * p0);
           } else if (n >= s && n <= k) {
@@ -141,7 +138,6 @@ class MMsK extends Component {
           } else if (n > k) {
             p.push(0);
           }
-
           pk =
             Math.pow(lambda / miu, k) /
             (this.handleFactorial(s) * Math.pow(s, k - s)) *
@@ -150,7 +146,6 @@ class MMsK extends Component {
           wq = lq / lambdaE;
           w = wq + 1 / miu;
           l = lambdaE * w;
-
           if (n < s) {
             cn = Math.pow(lambda / miu, n) / this.handleFactorial(n);
           } else if (n <= k && n >= s) {
@@ -163,39 +158,38 @@ class MMsK extends Component {
           pn = p[p.length - 1];
           clProm = 1 - p0;
         }
+        this.setState({
+          ...this.state,
+          res: {
+            ro: ro.toFixed(5),
+            p0: p0.toFixed(5),
+            pk: pk.toFixed(5),
+            pn: pn.toFixed(5),
+            cn: cn.toFixed(5),
+            lambdaE: lambdaE.toFixed(5),
+            lq: lq.toFixed(5),
+            l: l.toFixed(5),
+            wq: wq.toFixed(5),
+            w: w.toFixed(5),
+            clProm: clProm.toFixed(5)
+          }
+        });
+        const r = {
+          l: l.toFixed(5),
+          lq: lq.toFixed(5),
+          w: w.toFixed(5),
+          wq: wq.toFixed(5),
+          ro: ro.toFixed(5),
+          p0: p0.toFixed(5),
+          pn: pn.toFixed(5),
+          pk: pk.toFixed(5),
+          lambdaE: lambdaE.toFixed(5),
+          clProm: clProm.toFixed(5),
+          cn: cn.toFixed(5)
+        };
+        this.state.resultado.push(r);
       }
     }
-
-    this.setState({
-      ...this.state,
-      res: {
-        ro: ro.toFixed(5),
-        p0: p0.toFixed(5),
-        pk: pk.toFixed(5),
-        pn: pn.toFixed(5),
-        cn: cn.toFixed(5),
-        lambdaE: lambdaE.toFixed(5),
-        lq: lq.toFixed(5),
-        l: l.toFixed(5),
-        wq: wq.toFixed(5),
-        w: w.toFixed(5),
-        clProm: clProm.toFixed(5)
-      }
-    });
-    const r = {
-      l: l.toFixed(5),
-      lq: lq.toFixed(5),
-      w: w.toFixed(5),
-      wq: wq.toFixed(5),
-      ro: ro.toFixed(5),
-      p0: p0.toFixed(5),
-      pn: pn.toFixed(5),
-      pk: pk.toFixed(5),
-      lambdaE: lambdaE.toFixed(5),
-      clProm: clProm.toFixed(5),
-      cn: cn.toFixed(5)
-    };
-    this.state.resultado.push(r);
   };
 
   handleFactorial = n => {
