@@ -185,7 +185,7 @@ class MD1 extends Component {
               <TextField
                 margin="normal"
                 label="cfila"
-                placeholder="Costo en Fila"
+                placeholder="Costo por Tiempo de Espera"
                 name="cfila"
                 onChange={this.handleChange}
                 fullWidth
